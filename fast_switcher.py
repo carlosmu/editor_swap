@@ -20,7 +20,7 @@ bl_info = {
     "location" : "Properties and Outliner headers",
     "description" : "Fast switching between outliner and properties.",
     "warning" : "",
-    "doc_url" : "",
+    "doc_url" : "https://github.com/carlosmu/fast_switcher",
     "tracker_url" : "",
 }
 
