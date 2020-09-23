@@ -1,7 +1,7 @@
 # Fast Switcher (Blender Addon) 
-Fast switching between Outliner/Properties and Dopesheet/GraphEditor
+Fast switching between Outliner/Properties and Dopesheet/GraphEditor.
 <br>
-Especially useful on small screens to benefit of vertical space (Outliner/Properties).
+Especially useful on small screens to benefit of vertical space (in the case of Outliner / Properties).
 <br><br>
 <img src="demo/fast_switcher.gif">
 

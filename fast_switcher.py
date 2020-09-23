@@ -15,10 +15,10 @@ bl_info = {
     "name" : "fast_switcher",
     "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
     "blender" : (2, 83, 0),
-    "version" : (0, 2, 0),
+    "version" : (0, 2, 1),
     "category" : "User",
-    "location" : "Properties and Outliner headers",
-    "description" : "Fast switching between outliner and properties.",
+    "location" : "Some editors headers",
+    "description" : "Fast switching between some editors.",
     "warning" : "",
     "doc_url" : "https://github.com/carlosmu/fast_switcher",
     "tracker_url" : "",
@@ -46,7 +46,7 @@ class FS_OT_fast_switcher(bpy.types.Operator):
         else:
             return False
     
-    # If the current area is outliner go to properties. Else go to outliner
+    # If the current editor is "X" assign "Y"...
     def execute(self, context):
         if (bpy.context.area.ui_type == 'OUTLINER'):
             bpy.context.area.ui_type = 'PROPERTIES'
@@ -58,13 +58,11 @@ class FS_OT_fast_switcher(bpy.types.Operator):
             bpy.context.area.ui_type = 'DOPESHEET'
         return{'FINISHED'}
 
-# Draw the button in the outliner and properties headers 
+# Draw buttons
 def draw_fast_switcher(self, context):
-    # If is the Drivers or Timeline do nothing, else draw the button
-    # This is because Drivers and Timeline are children of FCURVES and Dopesheet
-    if (bpy.context.area.ui_type == 'DRIVERS' or bpy.context.area.ui_type == 'TIMELINE'): 
-        pass
-    else:
+    # If not (context editor "Drivers" or "Timeline") draw buttons. 
+    # Because this are children of DopeSheet and FCurves
+    if not (bpy.context.area.ui_type == 'DRIVERS' or bpy.context.area.ui_type == 'TIMELINE'): 
         self.layout.operator("area.fast_switcher",text="", icon='WINDOW')
 
 # Register/unregister the operator class and draw function
