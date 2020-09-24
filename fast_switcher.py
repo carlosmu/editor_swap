@@ -17,7 +17,7 @@ bl_info = {
     "name" : "fast_switcher",
     "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
     "blender" : (2, 83, 0),
-    "version" : (0, 3, 0),
+    "version" : (0, 3, 2),
     "category" : "User",
     "location" : "Some editors headers",
     "description" : "Fast switching between some editors.",
@@ -77,16 +77,16 @@ class FS_OT_fast_switcher(bpy.types.Operator):
             bpy.context.area.ui_type = 'INFO'
         elif (bpy.context.area.ui_type == 'INFO'):
             bpy.context.area.ui_type = 'TIMELINE'
-        # This works well on 2.90 
-        # In 2.91 VIEW was changed to IMAGE_EDITOR
+        # Fixing inconsistent Image_Editor names between versions
         elif (bpy.context.area.ui_type == 'UV'):
-            try: bpy.context.area.ui_type = 'VIEW'
-            except RuntimeError:
-                pass
-                try: bpy.context.area.ui_type = 'IMAGE_EDITOR'
-                except RuntimeError:
-                    pass    
+            if bpy.app.version >= (2, 91, 0):
+                bpy.context.area.ui_type = 'IMAGE_EDITOR'
+            else: 
+                bpy.context.area.ui_type = 'VIEW'
+        # End of fix
         elif (bpy.context.area.ui_type == 'VIEW'): 
+            bpy.context.area.ui_type = 'UV'
+        elif (bpy.context.area.ui_type == 'IMAGE_EDITOR'): 
             bpy.context.area.ui_type = 'UV'
         elif (bpy.context.area.ui_type == 'TEXT_EDITOR'):
             bpy.context.area.ui_type = 'CONSOLE'
