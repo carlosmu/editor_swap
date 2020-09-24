@@ -50,11 +50,17 @@ class FS_OT_fast_switcher(bpy.types.Operator):
             return True
         elif context.area.ui_type == 'UV':
             return True
-        elif context.area.ui_type == 'IMAGE_EDITOR':
+        elif context.area.ui_type == 'IMAGE_EDITOR': 
+            return True
+        elif context.area.ui_type == 'VIEW': 
             return True
         elif context.area.ui_type == 'TEXT_EDITOR':
             return True
         elif context.area.ui_type == 'CONSOLE':
+            return True
+        elif context.area.ui_type == 'CompositorNodeTree':
+            return True
+        elif context.area.ui_type == 'ShaderNodeTree':
             return True
         else:
             return False
@@ -71,14 +77,25 @@ class FS_OT_fast_switcher(bpy.types.Operator):
             bpy.context.area.ui_type = 'INFO'
         elif (bpy.context.area.ui_type == 'INFO'):
             bpy.context.area.ui_type = 'TIMELINE'
+        # This works well on 2.90 
+        # In 2.91 VIEW was changed to IMAGE_EDITOR
         elif (bpy.context.area.ui_type == 'UV'):
-            bpy.context.area.ui_type = 'IMAGE_EDITOR'
-        elif (bpy.context.area.ui_type == 'IMAGE_EDITOR'):
+            try: bpy.context.area.ui_type = 'VIEW'
+            except RuntimeError:
+                pass
+                try: bpy.context.area.ui_type = 'IMAGE_EDITOR'
+                except RuntimeError:
+                    pass    
+        elif (bpy.context.area.ui_type == 'VIEW'): 
             bpy.context.area.ui_type = 'UV'
         elif (bpy.context.area.ui_type == 'TEXT_EDITOR'):
             bpy.context.area.ui_type = 'CONSOLE'
         elif (bpy.context.area.ui_type == 'CONSOLE'):
             bpy.context.area.ui_type = 'TEXT_EDITOR'
+        elif (bpy.context.area.ui_type == 'CompositorNodeTree'):
+            bpy.context.area.ui_type = 'ShaderNodeTree'
+        elif (bpy.context.area.ui_type == 'ShaderNodeTree'):
+            bpy.context.area.ui_type = 'CompositorNodeTree'
         else: 
             bpy.context.area.ui_type = 'DOPESHEET'
         return{'FINISHED'}
@@ -101,6 +118,7 @@ def register():
     bpy.types.IMAGE_HT_header.prepend(draw_fast_switcher)    
     bpy.types.TEXT_HT_header.prepend(draw_fast_switcher)    
     bpy.types.CONSOLE_HT_header.prepend(draw_fast_switcher)    
+    bpy.types.NODE_HT_header.prepend(draw_fast_switcher)    
         
 def unregister():
     bpy.utils.unregister_class(FS_OT_fast_switcher)
@@ -112,3 +130,4 @@ def unregister():
     bpy.types.IMAGE_HT_header.remove(draw_fast_switcher)
     bpy.types.TEXT_HT_header.remove(draw_fast_switcher)
     bpy.types.CONSOLE_HT_header.remove(draw_fast_switcher)
+    bpy.types.NODE_HT_header.remove(draw_fast_switcher)
