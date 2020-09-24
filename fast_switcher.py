@@ -43,6 +43,10 @@ class FS_OT_fast_switcher(bpy.types.Operator):
             return True
         elif context.area.ui_type == 'PROPERTIES':
             return True
+        elif context.area.ui_type == 'TIMELINE':
+            return True
+        elif context.area.ui_type == 'INFO':
+            return True
         else:
             return False
     
@@ -54,6 +58,10 @@ class FS_OT_fast_switcher(bpy.types.Operator):
             bpy.context.area.ui_type = 'OUTLINER'
         elif (bpy.context.area.ui_type == 'DOPESHEET'):
             bpy.context.area.ui_type = 'FCURVES'
+        elif (bpy.context.area.ui_type == 'TIMELINE'):
+            bpy.context.area.ui_type = 'INFO'
+        elif (bpy.context.area.ui_type == 'INFO'):
+            bpy.context.area.ui_type = 'TIMELINE'
         else: 
             bpy.context.area.ui_type = 'DOPESHEET'
         return{'FINISHED'}
@@ -62,7 +70,7 @@ class FS_OT_fast_switcher(bpy.types.Operator):
 def draw_fast_switcher(self, context):
     # If not (context editor "Drivers" or "Timeline") draw buttons. 
     # Because this are children of DopeSheet and FCurves
-    if not (bpy.context.area.ui_type == 'DRIVERS' or bpy.context.area.ui_type == 'TIMELINE'): 
+    if not (bpy.context.area.ui_type == 'DRIVERS' """or bpy.context.area.ui_type == 'TIMELINE'"""): 
         self.layout.operator("area.fast_switcher",text="", icon='WINDOW')
 
 # Register/unregister the operator class and draw function
@@ -72,6 +80,7 @@ def register():
     bpy.types.PROPERTIES_HT_header.prepend(draw_fast_switcher)
     bpy.types.DOPESHEET_HT_header.prepend(draw_fast_switcher)
     bpy.types.GRAPH_HT_header.prepend(draw_fast_switcher)    
+    bpy.types.INFO_HT_header.prepend(draw_fast_switcher)    
         
 def unregister():
     bpy.utils.unregister_class(FS_OT_fast_switcher)
@@ -79,3 +88,4 @@ def unregister():
     bpy.types.PROPERTIES_HT_header.remove(draw_fast_switcher)
     bpy.types.DOPESHEET_HT_header.remove(draw_fast_switcher)
     bpy.types.GRAPH_HT_header.remove(draw_fast_switcher)
+    bpy.types.INFO_HT_header.remove(draw_fast_switcher)
