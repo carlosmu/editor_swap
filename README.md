@@ -1,7 +1,14 @@
 # Fast Switcher (Blender Addon) 
-Fast switching between Outliner/Properties and Dopesheet/GraphEditor.
+Fast switching between Editors. 
 <br>
-Especially useful on small screens to benefit of vertical space (in the case of Outliner / Properties).
+- Suported Editors
+    - Image/UV
+    - Shader/Compositor
+    - DopeSheet/GraphEditor
+    - Timeline/Info
+    - Outliner/Properties
+    - TextEditor/PythonConsole
+
 <br><br>
 <img src="demo/fast_switcher.gif">
 
@@ -13,3 +20,10 @@ Especially useful on small screens to benefit of vertical space (in the case of 
 5. Activate the addon.
 6. In some cases, after installing, it is necessary to hover the mouse over the area to refresh it.
 7. Enjoy it!
+
+## To-Do
+- Add Support for more editors
+    - Video Sequencer / Movie Clip Editor
+    - Drivers / NLA
+    - 3dViewport / Preferences ?
+- Test with custom icons in each case.
