@@ -1,5 +1,5 @@
 # Quick Editor Switch (Blender Addon) 
-Quick switch between Editors. 
+Quick switch between Editors. <br>
 I made it to quickly switch between outliner and properties editor. 
 Which is especially useful on small screens or when you have very large hierarchies of objects. <br>
 The other editors were added later. I hope you find it useful.
