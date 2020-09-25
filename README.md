@@ -1,4 +1,4 @@
-# Fast Switcher (Blender Addon) 
+# Quick Editor Switch (Blender Addon) 
 Fast switching between Editors. 
 <br>
 - Suported Editors
@@ -9,21 +9,17 @@ Fast switching between Editors.
     - Outliner/Properties
     - TextEditor/PythonConsole
 
-<br><br>
-<img src="demo/fast_switcher.gif">
+<br>
+<img src="demo/quick_editor_switch.gif">
 
 ## Instalation
 1. On this page, go to Code > Download ZIP and save it on your computer. <br>
 2. Extract the ZIP file..
 3. Go to Blender > User Preferences > Addons > Install 
-4. Select the python file "fast.switcher.py"
+4. Select the python file "quick_editor_switch.py"
 5. Activate the addon.
 6. In some cases, after installing, it is necessary to hover the mouse over the area to refresh it.
 7. Enjoy it!
 
 ## To-Do
-- Add Support for more editors
-    - Video Sequencer / Movie Clip Editor
-    - Drivers / NLA
-    - 3dViewport / Preferences ?
-- Test with custom icons in each case.
+- Clean the code
