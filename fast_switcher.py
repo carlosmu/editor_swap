@@ -28,7 +28,7 @@ bl_info = {
 
 # Operator class
 class FS_OT_fast_switcher(bpy.types.Operator):
-    """Fast switch between outliner and properties editors"""
+    """Toggle between two editors"""
     bl_idname = "area.fast_switcher"
     bl_label = "Fast Switcher"
     
