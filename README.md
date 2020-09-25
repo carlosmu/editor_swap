@@ -22,6 +22,3 @@ Quick switching between Editors.
 5. Activate the addon.
 6. In some cases, after installing, it is necessary to hover the mouse over the area to refresh it.
 7. Enjoy it!
-
-## To-Do
-- Clean the code

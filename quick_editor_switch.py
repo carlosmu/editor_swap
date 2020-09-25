@@ -17,7 +17,7 @@ bl_info = {
     "name" : "Quick Editor Switch",
     "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
     "blender" : (2, 83, 0),
-    "version" : (0, 4, 3),
+    "version" : (0, 4, 4),
     "category" : "User",
     "location" : "Editors headers",
     "description" : "Quick switch between editors.",
@@ -88,12 +88,11 @@ class QES_OT_quick_editor_switch(bpy.types.Operator):
 
 # Draw buttons
 def draw_quick_editor_switch(self, context):
-    # If not context editor "Drivers" draw buttons (because this is children of FCurves). 
+    # If not "TextureNodeTree" draw buttons (because shares space with shaders and compositor). 
     if not (context.area.ui_type == 'TextureNodeTree'): 
         self.layout.operator("area.quick_editor_switch",text="", icon='WINDOW')
 
 # Register/unregister the operator class and draw function
-# To-Do: Give more elegance to this code.
 def register():
     bpy.utils.register_class(QES_OT_quick_editor_switch)
     bpy.types.OUTLINER_HT_header.prepend(draw_quick_editor_switch)
