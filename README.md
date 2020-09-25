@@ -1,13 +1,15 @@
 # Quick Editor Switch (Blender Addon) 
-Fast switching between Editors. 
+Quick switching between Editors. 
 <br>
 - Suported Editors
-    - Image/UV
-    - Shader/Compositor
-    - DopeSheet/GraphEditor
-    - Timeline/Info
-    - Outliner/Properties
-    - TextEditor/PythonConsole
+    - Image / UV
+    - Shader / Compositor
+    - VSE / ClipEditor
+    - DopeSheet / GraphEditor
+    - Timeline / Info
+    - Drivers / NLA
+    - TextEditor / PythonConsole
+    - Outliner / Properties
 
 <br>
 <img src="demo/quick_editor_switch.gif">
