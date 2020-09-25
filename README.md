@@ -8,7 +8,6 @@ The other editors were added later. I hope you find it useful.
 
 <br>
 <img src="demo/quick_editor_switch.gif">
-----
 <br><br>
 
 ## Suported Editors
