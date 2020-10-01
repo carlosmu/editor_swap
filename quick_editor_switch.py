@@ -17,7 +17,7 @@ bl_info = {
     "name" : "Quick Editor Switch",
     "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
     "blender" : (2, 83, 0),
-    "version" : (0, 4, 7),
+    "version" : (0, 5, 0),
     "category" : "User",
     "location" : "Editors headers",
     "description" : "Quick switching between paired editors.",
