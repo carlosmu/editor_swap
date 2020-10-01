@@ -17,10 +17,10 @@ bl_info = {
     "name" : "Quick Editor Switch",
     "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
     "blender" : (2, 83, 0),
-    "version" : (0, 4, 4),
+    "version" : (0, 4, 6),
     "category" : "User",
     "location" : "Editors headers",
-    "description" : "Quick switch between editors.",
+    "description" : "Quick switching between paired editors.",
     "warning" : "",
     "doc_url" : "https://github.com/carlosmu/quick_editor_switch",
     "tracker_url" : "",
@@ -35,54 +35,52 @@ class QES_OT_quick_editor_switch(bpy.types.Operator):
     # It prevents the operator from appearing in unsupported editors.
     @classmethod
     def poll(cls, context):
-        if (context.area.ui_type == 'TextureNodeTree'
+        if not (context.area.ui_type == 'TextureNodeTree'
         or context.area.ui_type == 'FILE_BROWSER'):
-            return False
-        else:
             return True
     
     # If the current editor is "X" assign "Y"...
     def execute(self, context):
-        if (context.area.ui_type == 'OUTLINER'):
+        if context.area.ui_type == 'OUTLINER':
             context.area.ui_type = 'PROPERTIES'
-        elif (context.area.ui_type == 'PROPERTIES'):
+        elif context.area.ui_type == 'PROPERTIES':
             context.area.ui_type = 'OUTLINER'
-        elif (context.area.ui_type == 'DOPESHEET'):
+        elif context.area.ui_type == 'DOPESHEET':
             context.area.ui_type = 'FCURVES'
-        elif (context.area.ui_type == 'TIMELINE'):
+        elif context.area.ui_type == 'TIMELINE':
             context.area.ui_type = 'INFO'
-        elif (context.area.ui_type == 'INFO'):
+        elif context.area.ui_type == 'INFO':
             context.area.ui_type = 'TIMELINE'
         # Fixing inconsistent Image_Editor names between versions
-        elif (context.area.ui_type == 'UV'):
+        elif context.area.ui_type == 'UV':
             if bpy.app.version >= (2, 91, 0):
                 context.area.ui_type = 'IMAGE_EDITOR'
             else: 
                 context.area.ui_type = 'VIEW'
                 # End of fix
-        elif (context.area.ui_type == 'VIEW'): 
+        elif context.area.ui_type == 'VIEW':
             context.area.ui_type = 'UV'
-        elif (context.area.ui_type == 'IMAGE_EDITOR'): 
+        elif context.area.ui_type == 'IMAGE_EDITOR':
             context.area.ui_type = 'UV'
-        elif (context.area.ui_type == 'TEXT_EDITOR'):
+        elif context.area.ui_type == 'TEXT_EDITOR':
             context.area.ui_type = 'CONSOLE'
-        elif (context.area.ui_type == 'CONSOLE'):
+        elif context.area.ui_type == 'CONSOLE':
             context.area.ui_type = 'TEXT_EDITOR'
-        elif (context.area.ui_type == 'CompositorNodeTree'):
+        elif context.area.ui_type == 'CompositorNodeTree':
             context.area.ui_type = 'ShaderNodeTree'
-        elif (context.area.ui_type == 'ShaderNodeTree'):
+        elif context.area.ui_type == 'ShaderNodeTree':
             context.area.ui_type = 'CompositorNodeTree'
-        elif (context.area.ui_type == 'DRIVERS'):
+        elif context.area.ui_type == 'DRIVERS':
             context.area.ui_type = 'NLA_EDITOR'
-        elif (context.area.ui_type == 'NLA_EDITOR'):
+        elif context.area.ui_type == 'NLA_EDITOR':
             context.area.ui_type = 'DRIVERS'
-        elif (context.area.ui_type == 'SEQUENCE_EDITOR'):
+        elif context.area.ui_type == 'SEQUENCE_EDITOR':
             context.area.ui_type = 'CLIP_EDITOR'
-        elif (context.area.ui_type == 'CLIP_EDITOR'):
+        elif context.area.ui_type == 'CLIP_EDITOR':
             context.area.ui_type = 'SEQUENCE_EDITOR'
-        elif (context.area.ui_type == 'PREFERENCES'):
+        elif context.area.ui_type == 'PREFERENCES':
             context.area.ui_type = 'VIEW_3D'
-        elif (context.area.ui_type == 'VIEW_3D'):
+        elif context.area.ui_type == 'VIEW_3D':
             context.area.ui_type = 'PREFERENCES'
         else: 
             context.area.ui_type = 'DOPESHEET'
@@ -91,7 +89,7 @@ class QES_OT_quick_editor_switch(bpy.types.Operator):
 # Draw buttons
 def draw_quick_editor_switch(self, context):
     # If not "TextureNodeTree" draw buttons (because shares space with shaders and compositor). 
-    if not (context.area.ui_type == 'TextureNodeTree'): 
+    if not context.area.ui_type == 'TextureNodeTree': 
         self.layout.operator("area.quick_editor_switch",text="", icon='WINDOW')
 
 # Register/unregister the operator class and draw function
