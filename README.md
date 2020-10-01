@@ -20,10 +20,10 @@ The other editors were added later. I hope you find it useful.
 - 3DVIEW / UserPreferences
 
 ## Instalation
-1. On this page, go to Code > Download ZIP and save it on your computer. 
-2. Extract the ZIP file..
+1. Go to releases page: https://github.com/carlosmu/quick_editor_switch/releases/
+2. Download the python file "quick_editor_switch.py"
 3. Go to Blender > User Preferences > Addons > Install 
-4. Select the python file "quick_editor_switch.py"
+4. Select the previously downloaded file.
 5. Activate the addon.
 6. In some cases, after installing, it is necessary to hover the mouse over the area to refresh it.
 7. Enjoy it!
