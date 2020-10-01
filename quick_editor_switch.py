@@ -35,10 +35,8 @@ class QES_OT_quick_editor_switch(bpy.types.Operator):
     # It prevents the operator from appearing in unsupported editors.
     @classmethod
     def poll(cls, context):
-        if ((context.area.ui_type == 'VIEW_3D') 
-        or (context.area.ui_type == 'PREFERENCES')
-        or (context.area.ui_type == 'TextureNodeTree')
-        or (context.area.ui_type == 'FILE_BROWSER')):
+        if (context.area.ui_type == 'TextureNodeTree'
+        or context.area.ui_type == 'FILE_BROWSER'):
             return False
         else:
             return True
@@ -82,6 +80,10 @@ class QES_OT_quick_editor_switch(bpy.types.Operator):
             context.area.ui_type = 'CLIP_EDITOR'
         elif (context.area.ui_type == 'CLIP_EDITOR'):
             context.area.ui_type = 'SEQUENCE_EDITOR'
+        elif (context.area.ui_type == 'PREFERENCES'):
+            context.area.ui_type = 'VIEW_3D'
+        elif (context.area.ui_type == 'VIEW_3D'):
+            context.area.ui_type = 'PREFERENCES'
         else: 
             context.area.ui_type = 'DOPESHEET'
         return{'FINISHED'}
@@ -107,6 +109,8 @@ def register():
     bpy.types.NLA_HT_header.prepend(draw_quick_editor_switch)    
     bpy.types.SEQUENCER_HT_header.prepend(draw_quick_editor_switch)    
     bpy.types.CLIP_HT_header.prepend(draw_quick_editor_switch)    
+    bpy.types.VIEW3D_HT_tool_header.prepend(draw_quick_editor_switch)    
+    bpy.types.USERPREF_HT_header.prepend(draw_quick_editor_switch)    
         
 def unregister():
     bpy.utils.unregister_class(QES_OT_quick_editor_switch)
@@ -122,3 +126,5 @@ def unregister():
     bpy.types.NLA_HT_header.remove(draw_quick_editor_switch)
     bpy.types.SEQUENCER_HT_header.remove(draw_quick_editor_switch)
     bpy.types.CLIP_HT_header.remove(draw_quick_editor_switch)
+    bpy.types.VIEW3D_HT_tool_header.remove(draw_quick_editor_switch)
+    bpy.types.USERPREF_HT_header.remove(draw_quick_editor_switch)

@@ -17,6 +17,7 @@ The other editors were added later. I hope you find it useful.
 - Drivers / NLA
 - TextEditor / PythonConsole
 - Outliner / Properties
+- 3DVIEW / UserPreferences
 
 ## Instalation
 1. On this page, go to Code > Download ZIP and save it on your computer. 
