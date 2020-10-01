@@ -17,7 +17,7 @@ bl_info = {
     "name" : "Quick Editor Switch",
     "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
     "blender" : (2, 83, 0),
-    "version" : (0, 4, 6),
+    "version" : (0, 4, 7),
     "category" : "User",
     "location" : "Editors headers",
     "description" : "Quick switching between paired editors.",
@@ -107,7 +107,7 @@ def register():
     bpy.types.NLA_HT_header.prepend(draw_quick_editor_switch)    
     bpy.types.SEQUENCER_HT_header.prepend(draw_quick_editor_switch)    
     bpy.types.CLIP_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.VIEW3D_HT_tool_header.prepend(draw_quick_editor_switch)    
+    bpy.types.VIEW3D_HT_header.prepend(draw_quick_editor_switch)    
     bpy.types.USERPREF_HT_header.prepend(draw_quick_editor_switch)    
         
 def unregister():
@@ -124,5 +124,5 @@ def unregister():
     bpy.types.NLA_HT_header.remove(draw_quick_editor_switch)
     bpy.types.SEQUENCER_HT_header.remove(draw_quick_editor_switch)
     bpy.types.CLIP_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.VIEW3D_HT_tool_header.remove(draw_quick_editor_switch)
+    bpy.types.VIEW3D_HT_header.remove(draw_quick_editor_switch)
     bpy.types.USERPREF_HT_header.remove(draw_quick_editor_switch)
