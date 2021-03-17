@@ -14,23 +14,29 @@
 import bpy
 
 bl_info = {
-    "name" : "Quick Editor Switch",
+    "name" : "Editor Swap",
     "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
     "blender" : (2, 83, 0),
-    "version" : (0, 5, 0),
+    "version" : (0, 6, 0),
     "category" : "User",
     "location" : "Editors headers",
-    "description" : "Quick switching between paired editors.",
+    "description" : "Swapping between paired editors.",
     "warning" : "",
-    "doc_url" : "https://github.com/carlosmu/quick_editor_switch",
-    "tracker_url" : "",
+    "doc_url" : "https://github.com/carlosmu/editor_swap",
+    "tracker_url" : "https://github.com/carlosmu/editor_swap/issues",
 }
 
-# Operator class
-class QES_OT_quick_editor_switch(bpy.types.Operator):
+####################################
+# USER PREFS
+####################################
+
+####################################
+# MAIN OPERATOR
+####################################
+class ES_OT_editor_swap(bpy.types.Operator):
     """Quick switch between editors"""
-    bl_idname = "area.quick_editor_switch"
-    bl_label = "Quick Editor Switch"  
+    bl_idname = "area.editor_swap"
+    bl_label = "Editor Swap"  
     
     # It prevents the operator from appearing in unsupported editors.
     @classmethod
@@ -86,43 +92,48 @@ class QES_OT_quick_editor_switch(bpy.types.Operator):
             context.area.ui_type = 'DOPESHEET'
         return{'FINISHED'}
 
-# Draw buttons
-def draw_quick_editor_switch(self, context):
+####################################
+# DRAW BUTTONS
+####################################
+def draw_editor_swap(self, context):
     # If not "TextureNodeTree" draw buttons (because shares space with shaders and compositor). 
     if not context.area.ui_type == 'TextureNodeTree': 
-        self.layout.operator("area.quick_editor_switch",text="", icon='WINDOW')
+        self.layout.operator("area.editor_swap",text="", icon='WINDOW')
 
-# Register/unregister the operator class and draw function
+
+####################################
+# REGISTER/UNREGISTER
+####################################
 def register():
-    bpy.utils.register_class(QES_OT_quick_editor_switch)
-    bpy.types.OUTLINER_HT_header.prepend(draw_quick_editor_switch)
-    bpy.types.PROPERTIES_HT_header.prepend(draw_quick_editor_switch)
-    bpy.types.DOPESHEET_HT_header.prepend(draw_quick_editor_switch)
-    bpy.types.GRAPH_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.INFO_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.IMAGE_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.TEXT_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.CONSOLE_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.NODE_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.NLA_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.SEQUENCER_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.CLIP_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.VIEW3D_HT_header.prepend(draw_quick_editor_switch)    
-    bpy.types.USERPREF_HT_header.prepend(draw_quick_editor_switch)    
+    bpy.utils.register_class(ES_OT_editor_swap)
+    bpy.types.OUTLINER_HT_header.prepend(draw_editor_swap)
+    bpy.types.PROPERTIES_HT_header.prepend(draw_editor_swap)
+    bpy.types.DOPESHEET_HT_header.prepend(draw_editor_swap)
+    bpy.types.GRAPH_HT_header.prepend(draw_editor_swap)    
+    bpy.types.INFO_HT_header.prepend(draw_editor_swap)    
+    bpy.types.IMAGE_HT_header.prepend(draw_editor_swap)    
+    bpy.types.TEXT_HT_header.prepend(draw_editor_swap)    
+    bpy.types.CONSOLE_HT_header.prepend(draw_editor_swap)    
+    bpy.types.NODE_HT_header.prepend(draw_editor_swap)    
+    bpy.types.NLA_HT_header.prepend(draw_editor_swap)    
+    bpy.types.SEQUENCER_HT_header.prepend(draw_editor_swap)    
+    bpy.types.CLIP_HT_header.prepend(draw_editor_swap)    
+    bpy.types.VIEW3D_HT_header.prepend(draw_editor_swap)    
+    bpy.types.USERPREF_HT_header.prepend(draw_editor_swap)    
         
 def unregister():
-    bpy.utils.unregister_class(QES_OT_quick_editor_switch)
-    bpy.types.OUTLINER_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.PROPERTIES_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.DOPESHEET_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.GRAPH_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.INFO_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.IMAGE_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.TEXT_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.CONSOLE_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.NODE_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.NLA_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.SEQUENCER_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.CLIP_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.VIEW3D_HT_header.remove(draw_quick_editor_switch)
-    bpy.types.USERPREF_HT_header.remove(draw_quick_editor_switch)
+    bpy.utils.unregister_class(ES_OT_editor_swap)
+    bpy.types.OUTLINER_HT_header.remove(draw_editor_swap)
+    bpy.types.PROPERTIES_HT_header.remove(draw_editor_swap)
+    bpy.types.DOPESHEET_HT_header.remove(draw_editor_swap)
+    bpy.types.GRAPH_HT_header.remove(draw_editor_swap)
+    bpy.types.INFO_HT_header.remove(draw_editor_swap)
+    bpy.types.IMAGE_HT_header.remove(draw_editor_swap)
+    bpy.types.TEXT_HT_header.remove(draw_editor_swap)
+    bpy.types.CONSOLE_HT_header.remove(draw_editor_swap)
+    bpy.types.NODE_HT_header.remove(draw_editor_swap)
+    bpy.types.NLA_HT_header.remove(draw_editor_swap)
+    bpy.types.SEQUENCER_HT_header.remove(draw_editor_swap)
+    bpy.types.CLIP_HT_header.remove(draw_editor_swap)
+    bpy.types.VIEW3D_HT_header.remove(draw_editor_swap)
+    bpy.types.USERPREF_HT_header.remove(draw_editor_swap)
