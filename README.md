@@ -29,5 +29,6 @@ The other editors were added later. I hope you find it useful.
 7. Enjoy it!
 
 # To-Do
-- Add preferences, for set custom editors.
-- Add Shortcut Ctrl+Tab
+- Add preferences, for set custom editors (and none)
+- Add Shortcut Ctrl+Tab (and make it configurable)
+- Preview before release? (like brushes preview)
