@@ -3,29 +3,29 @@
 ####################################
 
 import bpy
-# from bpy.types import Panel, PropertyGroup, WindowManager
-# from bpy.utils import register_class, unregister_class
 
 class ES_OT_editor_swap(bpy.types.Operator):
     """Quick switch between editors"""
     bl_idname = "area.editor_swap"
     bl_label = "Editor Swap"  
-    
-    # It prevents the operator from appearing in unsupported editors.
-    # @classmethod
-    # def poll(cls, context):
-    #     if not (context.area.ui_type == 'TextureNodeTree'
-    #     or context.area.ui_type == 'FILE_BROWSER'):
-    #         return True
 
     # If the current editor is "X" assign "Y"...
     def execute(self, context):
+        # Cast properties from user_prefs
         es_view_3d = context.preferences.addons[__package__].preferences.es_view_3d
-        es_image_editor = context.preferences.addons[__package__].preferences.es_image_editor
+        
+        if bpy.app.version >= (2, 91, 0):
+            es_image_editor = context.preferences.addons[__package__].preferences.es_image_editor
+        else:
+            es_view = context.preferences.addons[__package__].preferences.es_view
+        
         es_uv = context.preferences.addons[__package__].preferences.es_uv
         es_compositor = context.preferences.addons[__package__].preferences.es_compositor
         es_texture_node = context.preferences.addons[__package__].preferences.es_texture_node
-        es_geometry_node = context.preferences.addons[__package__].preferences.es_geometry_node
+        
+        if bpy.app.version >= (2, 92, 0):
+            es_geometry_node = context.preferences.addons[__package__].preferences.es_geometry_node
+        
         es_shader_editor = context.preferences.addons[__package__].preferences.es_shader_editor
         es_sequence_editor = context.preferences.addons[__package__].preferences.es_sequence_editor
         es_clip_editor = context.preferences.addons[__package__].preferences.es_clip_editor
@@ -40,20 +40,21 @@ class ES_OT_editor_swap(bpy.types.Operator):
         es_outliner = context.preferences.addons[__package__].preferences.es_outliner
         es_properties = context.preferences.addons[__package__].preferences.es_properties
         es_files = context.preferences.addons[__package__].preferences.es_files
-        es_assets = context.preferences.addons[__package__].preferences.es_assets
+        
+        if bpy.app.version >= (2, 93, 0):
+            es_assets = context.preferences.addons[__package__].preferences.es_assets
         es_preferences = context.preferences.addons[__package__].preferences.es_preferences
         
-
-
-
-
+        # Cast the editors
         if context.area.ui_type == 'VIEW_3D':
             context.area.ui_type = es_view_3d
         elif context.area.ui_type == 'IMAGE_EDITOR':
             context.area.ui_type = es_image_editor
+        elif context.area.ui_type == 'VIEW':
+            context.area.ui_type = es_view
         elif context.area.ui_type == 'UV':
             context.area.ui_type = es_uv
-        elif context.area.ui_type == 'CompositorNodeTree':
+        elif context.area.ui_type == 'CompositorNodeTree': 
             context.area.ui_type = es_compositor
         elif context.area.ui_type == 'TextureNodeTree':
             context.area.ui_type = es_texture_node
@@ -85,8 +86,6 @@ class ES_OT_editor_swap(bpy.types.Operator):
             context.area.ui_type = es_outliner
         elif context.area.ui_type == 'PROPERTIES':
             context.area.ui_type = es_properties
-        # elif context.area.ui_type == 'VIEW':
-        #     context.area.ui_type = es_view
         elif context.area.ui_type == 'FILES':
             context.area.ui_type =  es_files
         elif context.area.ui_type == 'ASSETS':
@@ -96,14 +95,6 @@ class ES_OT_editor_swap(bpy.types.Operator):
         else: 
             pass
         return{'FINISHED'}
-
-
-        # Fixing inconsistent Image_Editor names between versions
-            # if bpy.app.version >= (2, 91, 0):
-            #     context.area.ui_type = 'IMAGE_EDITOR'
-            # else: 
-            #     context.area.ui_type = 'VIEW'
-                # End of fix
 
 ####################################
 # REGISTER/UNREGISTER

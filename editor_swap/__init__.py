@@ -48,9 +48,13 @@ def unregister():
 
 """
 TO-DO
-- Editors based on preferences properties
+- Editors based on preferences properties = OK
+- Custom icons based on properties = OK
+- Resolve image editor 291
+- Resolve geometry nodes 292 = OK
+- Resolve asset browser 293 = OK
+
 - Keymap cunfigurable by preferences
-- Custom buttons based on properties
 - Restore Defaults button (or deactivate, activate)
 - Add "None" option to editors selector
 

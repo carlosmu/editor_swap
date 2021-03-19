@@ -4,15 +4,94 @@
 
 import bpy
 
+
 def draw_editor_swap(self, context):
-    # If not "TextureNodeTree" draw buttons (because shares space with shaders and compositor). 
-    # if not context.area.ui_type == 'TextureNodeTree': 
-        ## TO-DO use properties defined by the user  
     enable_buttons = context.preferences.addons[__package__].preferences.enable_buttons 
     es_custom_icon = context.preferences.addons[__package__].preferences.es_custom_icon 
    
+    # Cast properties from user_prefs
+    es_view_3d = context.preferences.addons[__package__].preferences.es_view_3d
+    
+    if bpy.app.version >= (2, 91, 0):
+        es_image_editor = context.preferences.addons[__package__].preferences.es_image_editor
+    else:
+        es_view = context.preferences.addons[__package__].preferences.es_view
+    
+    es_uv = context.preferences.addons[__package__].preferences.es_uv
+    es_compositor = context.preferences.addons[__package__].preferences.es_compositor
+    es_texture_node = context.preferences.addons[__package__].preferences.es_texture_node
+    
+    if bpy.app.version >= (2, 92, 0):
+        es_geometry_node = context.preferences.addons[__package__].preferences.es_geometry_node
+    
+    es_shader_editor = context.preferences.addons[__package__].preferences.es_shader_editor
+    es_sequence_editor = context.preferences.addons[__package__].preferences.es_sequence_editor
+    es_clip_editor = context.preferences.addons[__package__].preferences.es_clip_editor
+    es_dopesheet = context.preferences.addons[__package__].preferences.es_dopesheet
+    es_timeline = context.preferences.addons[__package__].preferences.es_timeline
+    es_fcurves = context.preferences.addons[__package__].preferences.es_fcurves
+    es_drivers = context.preferences.addons[__package__].preferences.es_drivers
+    es_nla_editor = context.preferences.addons[__package__].preferences.es_nla_editor
+    es_text_editor = context.preferences.addons[__package__].preferences.es_text_editor
+    es_console = context.preferences.addons[__package__].preferences.es_console
+    es_info = context.preferences.addons[__package__].preferences.es_info
+    es_outliner = context.preferences.addons[__package__].preferences.es_outliner
+    es_properties = context.preferences.addons[__package__].preferences.es_properties
+    es_files = context.preferences.addons[__package__].preferences.es_files
+    
+    if bpy.app.version >= (2, 93, 0):
+        es_assets = context.preferences.addons[__package__].preferences.es_assets
+    es_preferences = context.preferences.addons[__package__].preferences.es_preferences
+
     if enable_buttons:
-        self.layout.operator("area.editor_swap",text="", icon=es_custom_icon)
+        if context.area.ui_type == 'VIEW_3D' and context.area.ui_type == es_view_3d:
+            pass
+        if context.area.ui_type == 'IMAGE_EDITOR' and context.area.ui_type == es_image_editor:
+            pass
+        if context.area.ui_type == 'VIEW' and context.area.ui_type == es_view:
+            pass
+        if context.area.ui_type == 'UV' and context.area.ui_type == es_uv:
+            pass
+        if context.area.ui_type == 'CompositorNodeTree' and context.area.ui_type == es_compositor:
+            pass
+        if context.area.ui_type == 'TextureNodeTree' and context.area.ui_type == es_texture_node:
+            pass
+        if context.area.ui_type == 'GeometryNodeTree' and context.area.ui_type == es_geometry_node:
+            pass
+        if context.area.ui_type == 'ShaderNodeTree' and context.area.ui_type == es_shader_editor:
+            pass
+        if context.area.ui_type == 'SEQUENCE_EDITOR' and context.area.ui_type == es_sequence_editor:
+            pass
+        if context.area.ui_type == 'CLIP_EDITOR' and context.area.ui_type == es_clip_editor:
+            pass
+        if context.area.ui_type == 'DOPESHEET' and context.area.ui_type == es_dopesheet:
+            pass
+        if context.area.ui_type == 'TIMELINE' and context.area.ui_type == es_timeline:
+            pass
+        if context.area.ui_type == 'FCURVES' and context.area.ui_type == es_fcurves:
+            pass
+        if context.area.ui_type == 'DRIVERS' and context.area.ui_type == es_drivers:
+            pass
+        if context.area.ui_type == 'NLA_EDITOR' and context.area.ui_type == es_nla_editor:
+            pass
+        if context.area.ui_type == 'TEXT_EDITOR' and context.area.ui_type == es_text_editor:
+            pass
+        if context.area.ui_type == 'CONSOLE' and context.area.ui_type == es_console:
+            pass
+        if context.area.ui_type == 'INFO' and context.area.ui_type == es_info:
+            pass
+        if context.area.ui_type == 'OUTLINER' and context.area.ui_type == es_outliner:
+            pass
+        if context.area.ui_type == 'PROPERTIES' and context.area.ui_type == es_properties:
+            pass
+        if context.area.ui_type == 'FILES' and context.area.ui_type == es_files:
+            pass
+        if context.area.ui_type == 'ASSETS' and context.area.ui_type == es_assets:
+            pass
+        if context.area.ui_type == 'PREFERENCES' and context.area.ui_type == es_preferences:
+            pass        
+        else:
+            self.layout.operator("area.editor_swap",text="", icon=es_custom_icon)
             
 
 ####################################
@@ -32,9 +111,6 @@ def register():
     bpy.types.SEQUENCER_HT_header.prepend(draw_editor_swap)    
     bpy.types.CLIP_HT_header.prepend(draw_editor_swap)    
     bpy.types.VIEW3D_HT_header.prepend(draw_editor_swap)  
-    
-    # bpy.types.VIEW3D_HT_tool_header.prepend(draw_editor_swap) 
-
     bpy.types.USERPREF_HT_header.prepend(draw_editor_swap)    
     bpy.types.FILEBROWSER_HT_header.prepend(draw_editor_swap)    
         
@@ -51,9 +127,6 @@ def unregister():
     bpy.types.NLA_HT_header.remove(draw_editor_swap)
     bpy.types.SEQUENCER_HT_header.remove(draw_editor_swap)
     bpy.types.CLIP_HT_header.remove(draw_editor_swap)
-    
-    # bpy.types.VIEW3D_HT_tool_header.remove(draw_editor_swap)
-
     bpy.types.VIEW3D_HT_header.remove(draw_editor_swap)
     bpy.types.USERPREF_HT_header.remove(draw_editor_swap)
     bpy.types.FILEBROWSER_HT_header.remove(draw_editor_swap)
