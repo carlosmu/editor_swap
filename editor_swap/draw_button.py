@@ -6,12 +6,12 @@ import bpy
 
 def draw_editor_swap(self, context):
     # If not "TextureNodeTree" draw buttons (because shares space with shaders and compositor). 
-    if not context.area.ui_type == 'TextureNodeTree': 
+    # if not context.area.ui_type == 'TextureNodeTree': 
         ## TO-DO use properties defined by the user
-        if context.area.ui_type == 'OUTLINER':
-            self.layout.operator("area.editor_swap",text="", icon='MONKEY')
-        else:
-            self.layout.operator("area.editor_swap",text="", icon='WINDOW')
+    if context.area.ui_type == 'OUTLINER':
+        self.layout.operator("area.editor_swap",text="", icon='MONKEY')
+    else:
+        self.layout.operator("area.editor_swap",text="", icon='WINDOW')
 
 ####################################
 # REGISTER/UNREGISTER
@@ -31,6 +31,7 @@ def register():
     bpy.types.CLIP_HT_header.prepend(draw_editor_swap)    
     bpy.types.VIEW3D_HT_header.prepend(draw_editor_swap)    
     bpy.types.USERPREF_HT_header.prepend(draw_editor_swap)    
+    bpy.types.FILEBROWSER_HT_header.prepend(draw_editor_swap)    
         
 def unregister():
     bpy.types.OUTLINER_HT_header.remove(draw_editor_swap)
@@ -47,3 +48,4 @@ def unregister():
     bpy.types.CLIP_HT_header.remove(draw_editor_swap)
     bpy.types.VIEW3D_HT_header.remove(draw_editor_swap)
     bpy.types.USERPREF_HT_header.remove(draw_editor_swap)
+    bpy.types.FILEBROWSER_HT_header.remove(draw_editor_swap)

@@ -12,11 +12,11 @@ class ES_OT_editor_swap(bpy.types.Operator):
     bl_label = "Editor Swap"  
     
     # It prevents the operator from appearing in unsupported editors.
-    @classmethod
-    def poll(cls, context):
-        if not (context.area.ui_type == 'TextureNodeTree'
-        or context.area.ui_type == 'FILE_BROWSER'):
-            return True
+    # @classmethod
+    # def poll(cls, context):
+    #     if not (context.area.ui_type == 'TextureNodeTree'
+    #     or context.area.ui_type == 'FILE_BROWSER'):
+    #         return True
 
     # If the current editor is "X" assign "Y"...
     def execute(self, context):
