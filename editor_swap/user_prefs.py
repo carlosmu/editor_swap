@@ -7,9 +7,14 @@ import bpy
 class ES_UserPrefs(bpy.types.AddonPreferences):
     bl_idname = __package__
 
-    popup_dialog : bpy.props.BoolProperty(
-        name="Enable Popup Dialog on Creation",
-        description="Enable or Disable the Popup Dialog on creation of Quick Lattice", 
+    enable_keymap : bpy.props.BoolProperty(
+        name="Enable Keymap",
+        description="Enable or Disable Addon Keymap", 
+        default=True
+        )
+    enable_buttons : bpy.props.BoolProperty(
+        name="Enable Buttons on Headers",
+        description="Enable or Disable Buttons on Headers", 
         default=True
         )
 
@@ -178,7 +183,9 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         layout.use_property_decorate = True
         box = layout.box()
         box.separator()
-        box.prop(self, "popup_dialog")
+        box.prop(self, "enable_keymap")
+        # https://github.com/pitiwazou/Scripts-Blender/blob/Older-Scripts/addon_keymap_template
+        box.prop(self, "enable_buttons")
         box.separator()
         box.prop(self, "es_view_3d", text="3D Viewport")
         box.prop(self, "es_uv", text="Image Editor")
