@@ -18,7 +18,24 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         default=True
         )
 
-    editors = (('VIEW_3D', '3D Viewport', ''),
+    my_icons = (
+            ('WINDOW', 'Window', ''),
+            ('ARROW_LEFTRIGHT', 'Arrows Left-Right', ''),
+            ('UV_SYNC_SELECT', 'Arrows Diagonal', ''),
+            ('FILE_REFRESH', 'Refresh', ''),
+            ('FORCE_VORTEX', 'Force Vortex', ''),
+            ('SHADERFX', 'FX', ''),
+    )
+
+    es_custom_icon : bpy.props.EnumProperty(
+        name = "Custom Icon",
+        description= "Choose an custom icon",
+        items = my_icons,
+        default= 'WINDOW'
+    )
+
+    editors = (
+            ('VIEW_3D', '3D Viewport', ''),
             ('IMAGE_EDITOR', 'Image Editor', '')
             if bpy.app.version >= (2, 91, 0) else
             ('VIEW', 'Old Image Editor', ''),
@@ -66,13 +83,13 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         name = "Compositor",
         description= "",
         items = editors,
-        default='TextureNodeTree',
+        default='CompositorNodeTree',
     )
     es_texture_node : bpy.props.EnumProperty(
         name = "Texture Node Editor",
         description= "",
         items = editors,
-        default='CompositorNodeTree',
+        default='TextureNodeTree',
     )
     es_geometry_node : bpy.props.EnumProperty(
         name = "Geometry Node Editor",
@@ -181,19 +198,23 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         layout = self.layout
         layout.use_property_split = True
         layout.use_property_decorate = True
+        layout.prop(self, "enable_keymap")
+        # https://github.com/pitiwazou/Scripts-Blender/blob/Older-Scripts/addon_keymap_template
+        layout.prop(self, "enable_buttons")
+        if context.preferences.addons[__package__].preferences.enable_buttons:
+            layout.prop(self, "es_custom_icon", icon = context.preferences.addons[__package__].preferences.es_custom_icon)
         box = layout.box()
         box.separator()
-        box.prop(self, "enable_keymap")
-        # https://github.com/pitiwazou/Scripts-Blender/blob/Older-Scripts/addon_keymap_template
-        box.prop(self, "enable_buttons")
+        box.label(text="   Choose the pairing editors")
         box.separator()
         box.prop(self, "es_view_3d", text="3D Viewport")
-        box.prop(self, "es_uv", text="Image Editor")
-        box.prop(self, "es_compositor", text="UV Editor")
-        box.prop(self, "es_texture_node", text="Compositor")
-        box.prop(self, "es_geometry_node", text="Texture Node Editor")
-        box.prop(self, "es_shader_editor", text="Geometry Node Editor")
-        box.prop(self, "es_sequence_editor", text="Shader Editor")
+        box.prop(self, "es_image_editor", text="Image Editor")
+        box.prop(self, "es_uv", text="UV Editor")
+        box.prop(self, "es_compositor", text="Compositor")
+        box.prop(self, "es_texture_node", text="Texture Node Editor")
+        box.prop(self, "es_geometry_node", text="Geometry Node Editor")
+        box.prop(self, "es_shader_editor", text="Shader Editor")
+        box.prop(self, "es_sequence_editor", text="Video Sequencer")
         box.prop(self, "es_clip_editor", text="Movie Clip Editor")
         box.prop(self, "es_dopesheet", text="Dope Sheet")
         box.prop(self, "es_timeline", text="Timeline")

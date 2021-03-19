@@ -52,6 +52,7 @@ TO-DO
 - Keymap cunfigurable by preferences
 - Custom buttons based on properties
 - Restore Defaults button (or deactivate, activate)
+- Add "None" option to editors selector
 
 
 """

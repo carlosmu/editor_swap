@@ -93,8 +93,8 @@ class ES_OT_editor_swap(bpy.types.Operator):
             context.area.ui_type = es_assets
         elif context.area.ui_type == 'PREFERENCES':
             context.area.ui_type = es_preferences
-        # else: 
-        #     context.area.ui_type = 'DOPESHEET' 
+        else: 
+            pass
         return{'FINISHED'}
 
 

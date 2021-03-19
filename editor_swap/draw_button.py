@@ -9,11 +9,11 @@ def draw_editor_swap(self, context):
     # if not context.area.ui_type == 'TextureNodeTree': 
         ## TO-DO use properties defined by the user  
     enable_buttons = context.preferences.addons[__package__].preferences.enable_buttons 
+    es_custom_icon = context.preferences.addons[__package__].preferences.es_custom_icon 
+   
     if enable_buttons:
-        if context.area.ui_type == 'OUTLINER':
-            self.layout.operator("area.editor_swap",text="", icon='MONKEY')
-        else:
-            self.layout.operator("area.editor_swap",text="", icon='WINDOW')
+        self.layout.operator("area.editor_swap",text="", icon=es_custom_icon)
+            
 
 ####################################
 # REGISTER/UNREGISTER
