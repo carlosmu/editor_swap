@@ -35,7 +35,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
 
     image_editor = ('IMAGE_EDITOR', 'Image Editor', '') if bpy.app.version >= (2, 91, 0) else ('VIEW', 'Image Editor', '')
     texture_editor = ('TextureNodeTree', 'Texture Node Editor', '') if bpy.app.version >= (2, 90, 0) else ('TextureChannelMixing', 'Texture Node Editor', '')
-    file_browser = ('FILES', 'File Browser', '') if bpy.app.version >= (2, 91, 0) else ('FILE_BROWSER', 'File Browser', '')
+    file_browser = ('FILES', 'File Browser', '') if bpy.app.version >= (2, 92, 0) else ('FILE_BROWSER', 'File Browser', '')
 
     editors = [
             ('VIEW_3D', '3D Viewport', ''),
@@ -194,9 +194,9 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
     )
 
     if bpy.app.version >= (2, 93, 0):
-        es_files_default ='ASSETS'
+        es_files_default = 'ASSETS'
     elif bpy.app.version == (2, 92, 0):
-        es_files_default ='FILES'
+        es_files_default = 'FILES'
     else:
         es_files_default = 'FILE_BROWSER'
 
