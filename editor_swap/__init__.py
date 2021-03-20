@@ -15,7 +15,7 @@ bl_info = {
     "name" : "Editor Swap",
     "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
     "blender" : (2, 83, 0),
-    "version" : (0, 6, 0),
+    "version" : (0, 7, 0),
     "category" : "User",
     "location" : "Editors headers",
     "description" : "Swapping between paired editors.",
@@ -54,7 +54,7 @@ TO-DO
 - Resolve geometry nodes 292 = OK
 - Resolve asset browser 293 = OK
 
-- Keymap cunfigurable by preferences
+- Keymap cunfigurable by preferences (default CTRL ALT E)
 - Restore Defaults button (or deactivate, activate)
 - Add "None" option to editors selector
 

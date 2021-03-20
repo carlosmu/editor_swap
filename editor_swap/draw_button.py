@@ -45,51 +45,55 @@ def draw_editor_swap(self, context):
 
     if enable_buttons:
         if context.area.ui_type == 'VIEW_3D' and context.area.ui_type == es_view_3d:
-            pass
+            return
         if context.area.ui_type == 'IMAGE_EDITOR' and context.area.ui_type == es_image_editor:
-            pass
+            return
         if context.area.ui_type == 'VIEW' and context.area.ui_type == es_view:
-            pass
+            return
         if context.area.ui_type == 'UV' and context.area.ui_type == es_uv:
-            pass
+            return
         if context.area.ui_type == 'CompositorNodeTree' and context.area.ui_type == es_compositor:
-            pass
+            return
         if context.area.ui_type == 'TextureNodeTree' and context.area.ui_type == es_texture_node:
-            pass
+            return
+        if context.area.ui_type == 'TextureChannelMixing' and context.area.ui_type == es_texture_node:
+            return
         if context.area.ui_type == 'GeometryNodeTree' and context.area.ui_type == es_geometry_node:
-            pass
+            return
         if context.area.ui_type == 'ShaderNodeTree' and context.area.ui_type == es_shader_editor:
-            pass
+            return
         if context.area.ui_type == 'SEQUENCE_EDITOR' and context.area.ui_type == es_sequence_editor:
-            pass
+            return
         if context.area.ui_type == 'CLIP_EDITOR' and context.area.ui_type == es_clip_editor:
-            pass
+            return
         if context.area.ui_type == 'DOPESHEET' and context.area.ui_type == es_dopesheet:
-            pass
+            return
         if context.area.ui_type == 'TIMELINE' and context.area.ui_type == es_timeline:
-            pass
+            return
         if context.area.ui_type == 'FCURVES' and context.area.ui_type == es_fcurves:
-            pass
+            return
         if context.area.ui_type == 'DRIVERS' and context.area.ui_type == es_drivers:
-            pass
+            return
         if context.area.ui_type == 'NLA_EDITOR' and context.area.ui_type == es_nla_editor:
-            pass
+            return
         if context.area.ui_type == 'TEXT_EDITOR' and context.area.ui_type == es_text_editor:
-            pass
+            return
         if context.area.ui_type == 'CONSOLE' and context.area.ui_type == es_console:
-            pass
+            return
         if context.area.ui_type == 'INFO' and context.area.ui_type == es_info:
-            pass
+            return
         if context.area.ui_type == 'OUTLINER' and context.area.ui_type == es_outliner:
-            pass
+            return
         if context.area.ui_type == 'PROPERTIES' and context.area.ui_type == es_properties:
-            pass
+            return
         if context.area.ui_type == 'FILES' and context.area.ui_type == es_files:
-            pass
+            return
+        if context.area.ui_type == 'FILE_BROWSER' and context.area.ui_type == es_files:
+            return
         if context.area.ui_type == 'ASSETS' and context.area.ui_type == es_assets:
-            pass
+            return
         if context.area.ui_type == 'PREFERENCES' and context.area.ui_type == es_preferences:
-            pass        
+            return        
         else:
             self.layout.operator("area.editor_swap",text="", icon=es_custom_icon)
             

@@ -5,7 +5,7 @@
 import bpy
 
 class ES_OT_editor_swap(bpy.types.Operator):
-    """Quick switch between editors"""
+    """Quick swap between editors"""
     bl_idname = "area.editor_swap"
     bl_label = "Editor Swap"  
 
@@ -58,6 +58,8 @@ class ES_OT_editor_swap(bpy.types.Operator):
             context.area.ui_type = es_compositor
         elif context.area.ui_type == 'TextureNodeTree':
             context.area.ui_type = es_texture_node
+        elif context.area.ui_type == 'TextureChannelMixing':
+            context.area.ui_type = es_texture_node
         elif context.area.ui_type == 'GeometryNodeTree':
             context.area.ui_type = es_geometry_node
         elif context.area.ui_type == 'ShaderNodeTree':
@@ -87,6 +89,8 @@ class ES_OT_editor_swap(bpy.types.Operator):
         elif context.area.ui_type == 'PROPERTIES':
             context.area.ui_type = es_properties
         elif context.area.ui_type == 'FILES':
+            context.area.ui_type =  es_files
+        elif context.area.ui_type == 'FILE_BROWSER':
             context.area.ui_type =  es_files
         elif context.area.ui_type == 'ASSETS':
             context.area.ui_type = es_assets

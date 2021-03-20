@@ -34,13 +34,15 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
     )
 
     image_editor = ('IMAGE_EDITOR', 'Image Editor', '') if bpy.app.version >= (2, 91, 0) else ('VIEW', 'Image Editor', '')
-    
+    texture_editor = ('TextureNodeTree', 'Texture Node Editor', '') if bpy.app.version >= (2, 90, 0) else ('TextureChannelMixing', 'Texture Node Editor', '')
+    file_browser = ('FILES', 'File Browser', '') if bpy.app.version >= (2, 91, 0) else ('FILE_BROWSER', 'File Browser', '')
+
     editors = [
             ('VIEW_3D', '3D Viewport', ''),
             image_editor,
             ('UV', 'UV Editor', ''),
             ('CompositorNodeTree', 'Compositor', ''),
-            ('TextureNodeTree', 'Texture Node Editor', ''),            
+            texture_editor,            
             ('ShaderNodeTree', 'Shader Editor', ''),
             ('SEQUENCE_EDITOR', 'Video Sequencer', ''),
             ('CLIP_EDITOR', 'Movie Clip Editor', ''),
@@ -54,8 +56,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             ('INFO', 'Info', ''),
             ('OUTLINER', 'Outliner', ''),
             ('PROPERTIES', 'Properties', ''),
-            ('FILES', 'File Browser', ''),
-            ('ASSETS', 'Asset Browser', ''),
+            file_browser,
             ('PREFERENCES', 'Preferences', '')
     ]
     
@@ -91,7 +92,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         name = "UV Editor",
         description= "",
         items = editors,
-        default='IMAGE_EDITOR',
+        default='IMAGE_EDITOR' if bpy.app.version >= (2, 91, 0) else 'VIEW',
     )
     es_compositor : bpy.props.EnumProperty(
         name = "Compositor",
@@ -99,11 +100,12 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         items = editors,
         default='CompositorNodeTree',
     )
+    # Podría usar esto en lugar de lo que hice con el image editor y view
     es_texture_node : bpy.props.EnumProperty(
         name = "Texture Node Editor",
         description= "",
         items = editors,
-        default='TextureNodeTree',
+        default='TextureNodeTree' if bpy.app.version >= (2, 90, 0) else 'TextureChannelMixing',
     )
     if bpy.app.version >= (2, 92, 0):
         es_geometry_node : bpy.props.EnumProperty(
@@ -189,19 +191,28 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         description= "",
         items = editors,
         default='OUTLINER',
-    )    
+    )
+
+    if bpy.app.version >= (2, 93, 0):
+        es_files_default ='ASSETS'
+    elif bpy.app.version == (2, 92, 0):
+        es_files_default ='FILES'
+    else:
+        es_files_default = 'FILE_BROWSER'
+
     es_files : bpy.props.EnumProperty(
         name = "File Browser",
         description= "",
         items = editors,
-        default='ASSETS' if bpy.app.version >= (2, 93, 0) else 'FILES',
+        default = es_files_default,
+        # default='ASSETS' if bpy.app.version >= (2, 93, 0) else 'FILE_BROWSER',
     )    
     if bpy.app.version >= (2, 93, 0):
         es_assets : bpy.props.EnumProperty(
             name = "Asset Browser",
             description= "",
             items = editors,
-            default='FILES',
+            default='FILES' if bpy.app.version >= (2, 92, 0) else 'FILE_BROWSER',
         )
     es_preferences : bpy.props.EnumProperty(
         name = "Preferences",
