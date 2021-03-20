@@ -7,11 +7,6 @@ import bpy
 class ES_UserPrefs(bpy.types.AddonPreferences):
     bl_idname = __package__
 
-    enable_keymap : bpy.props.BoolProperty(
-        name="Enable Keymap",
-        description="Enable or Disable Addon Keymap", 
-        default=True
-        )
     enable_buttons : bpy.props.BoolProperty(
         name="Enable Buttons on Headers",
         description="Enable or Disable Buttons on Headers", 
@@ -27,7 +22,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
     )
 
     es_custom_icon : bpy.props.EnumProperty(
-        name = "Custom Icon",
+        name = "Custom Icon for Swap Buttons",
         description= "Choose an custom icon",
         items = my_icons,
         default= 'WINDOW'
@@ -225,15 +220,18 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         layout = self.layout
         layout.use_property_split = True
         layout.use_property_decorate = True
-        layout.prop(self, "enable_keymap")
+        
+        box = layout.box()
+        box.label(text="Tooltip: The shortcut for swap between editors is CTRL + ALT + E", icon='INFO')
         # https://github.com/pitiwazou/Scripts-Blender/blob/Older-Scripts/addon_keymap_template
+        
         layout.prop(self, "enable_buttons")
         if context.preferences.addons[__package__].preferences.enable_buttons:
             layout.prop(self, "es_custom_icon", icon = context.preferences.addons[__package__].preferences.es_custom_icon)
+        
         box = layout.box()
         box.separator()
-
-        box.label(text="   Choose the pairing editors. For none select the same editor")
+        box.label(text="Choose the pairing editors. For none select the same editor", icon='WINDOW')
         box.separator()
 
         box.prop(self, "es_view_3d", text="3D Viewport")
