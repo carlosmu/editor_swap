@@ -18,7 +18,7 @@ bl_info = {
     "version" : (0, 7, 0),
     "category" : "User",
     "location" : "Editors headers",
-    "description" : "Press CTRL+ALT+E or button for swap between editors.",
+    "description" : "Press CTRL+ALT+X or button for swap editors.",
     "warning" : "",
     "doc_url" : "https://gumroad.com/l/editorswap",
     "tracker_url" : "https://github.com/carlosmu/editor_swap/issues",
