@@ -6,7 +6,7 @@ import bpy
 
 
 def draw_editor_swap(self, context):
-    enable_buttons = context.preferences.addons[__package__].preferences.enable_buttons 
+    es_enable_buttons = context.preferences.addons[__package__].preferences.es_enable_buttons 
     es_custom_icon = context.preferences.addons[__package__].preferences.es_custom_icon 
    
     # Cast properties from user_prefs
@@ -43,7 +43,7 @@ def draw_editor_swap(self, context):
         es_assets = context.preferences.addons[__package__].preferences.es_assets
     es_preferences = context.preferences.addons[__package__].preferences.es_preferences
 
-    if enable_buttons:
+    if es_enable_buttons:
         if context.area.ui_type == 'VIEW_3D' and context.area.ui_type == es_view_3d:
             return
         if context.area.ui_type == 'IMAGE_EDITOR' and context.area.ui_type == es_image_editor:

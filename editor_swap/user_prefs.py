@@ -7,13 +7,13 @@ import bpy
 class ES_UserPrefs(bpy.types.AddonPreferences):
     bl_idname = __package__
 
-    enable_buttons : bpy.props.BoolProperty(
+    es_enable_buttons : bpy.props.BoolProperty(
         name="Enable Buttons on Headers",
         description="Enable or Disable Buttons on Headers", 
         default=True
-        )
+    )
 
-    my_icons = (
+    custom_icons = (
             ('WINDOW', 'Window', ''),
             ('ARROW_LEFTRIGHT', 'Arrows Left-Right', ''),
             ('FILE_REFRESH', 'Refresh', ''),
@@ -24,7 +24,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
     es_custom_icon : bpy.props.EnumProperty(
         name = "Custom Icon for Swap Buttons",
         description= "Choose an custom icon",
-        items = my_icons,
+        items = custom_icons,
         default= 'WINDOW'
     )
 
@@ -220,8 +220,8 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         layout.use_property_split = True
         layout.use_property_decorate = True
         
-        layout.prop(self, "enable_buttons")
-        if context.preferences.addons[__package__].preferences.enable_buttons:
+        layout.prop(self, "es_enable_buttons")
+        if context.preferences.addons[__package__].preferences.es_enable_buttons:
             layout.prop(self, "es_custom_icon", icon = context.preferences.addons[__package__].preferences.es_custom_icon)
         layout.scale_y = 1.4
         box = layout.box()
