@@ -188,7 +188,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         default='OUTLINER',
     )
 
-    if bpy.app.version >= (2, 93, 0):
+    if bpy.app.version > (2, 92, 0):
         es_files_default = 'ASSETS'
     elif bpy.app.version == (2, 92, 0):
         es_files_default = 'FILES'
@@ -200,7 +200,6 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         description= "",
         items = editors,
         default = es_files_default,
-        # default='ASSETS' if bpy.app.version >= (2, 93, 0) else 'FILE_BROWSER',
     )    
     if bpy.app.version >= (2, 93, 0):
         es_assets : bpy.props.EnumProperty(
@@ -221,16 +220,11 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         layout.use_property_split = True
         layout.use_property_decorate = True
         
-        box = layout.box()
-        box.label(text="Tooltip: The shortcut for swap between editors is CTRL + ALT + E", icon='INFO')
-        # https://github.com/pitiwazou/Scripts-Blender/blob/Older-Scripts/addon_keymap_template
-        
         layout.prop(self, "enable_buttons")
         if context.preferences.addons[__package__].preferences.enable_buttons:
             layout.prop(self, "es_custom_icon", icon = context.preferences.addons[__package__].preferences.es_custom_icon)
-        
+        layout.scale_y = 1.4
         box = layout.box()
-        box.separator()
         box.label(text="Choose the pairing editors. For none select the same editor", icon='WINDOW')
         box.separator()
 

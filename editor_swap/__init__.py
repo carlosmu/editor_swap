@@ -18,9 +18,9 @@ bl_info = {
     "version" : (0, 7, 0),
     "category" : "User",
     "location" : "Editors headers",
-    "description" : "Swapping between paired editors.",
+    "description" : "Press CTRL+ALT+E or button for swap between editors.",
     "warning" : "",
-    "doc_url" : "https://github.com/carlosmu/editor_swap",
+    "doc_url" : "https://gumroad.com/l/editorswap",
     "tracker_url" : "https://github.com/carlosmu/editor_swap/issues",
 }
 
@@ -30,7 +30,6 @@ from . import draw_button
 from . import ot_editor_swap
 from . import user_prefs
 from . import keymap
-
 
 ####################################
 # REGISTER/UNREGISTER
