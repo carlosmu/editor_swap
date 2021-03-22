@@ -29,10 +29,8 @@ import bpy
 from . import draw_button
 from . import ot_editor_swap
 from . import user_prefs
-# from . import keymap
+from . import keymap
 
-
-addon_keymaps = []
 
 ####################################
 # REGISTER/UNREGISTER
@@ -41,42 +39,10 @@ def register():
     draw_button.register()
     ot_editor_swap.register() 
     user_prefs.register() 
-    # keymap.register() 
-
-    # Keymap
-    wm = bpy.context.window_manager
-    kc = wm.keyconfigs.addon
-    if kc:
-        km = kc.keymaps.new(name='Window', space_type='EMPTY')
-        kmi = km.keymap_items.new("area.editor_swap", type = 'E', value = 'PRESS', ctrl = True, alt = True)
-        addon_keymaps.append((km, kmi))
-
-    
+    keymap.register()    
         
 def unregister():
     draw_button.unregister()
     ot_editor_swap.unregister() 
     user_prefs.unregister() 
-    # keymap.unregister() 
-
-    # Keymap
-    for km, kmi in addon_keymaps:
-        km.keymap_items.remove(kmi)
-    addon_keymaps.clear()
-
-
-"""
-TO-DO
-- Editors based on preferences properties = OK
-- Custom icons based on properties = OK
-- Resolve image editor 291
-- Resolve geometry nodes 292 = OK
-- Resolve asset browser 293 = OK
-
-- Keymap cunfigurable by preferences (default CTRL ALT E)
-- Restore Defaults button (or deactivate, activate)
-- Add "None" option to editors selector
-
-
-"""
-
+    keymap.unregister() 
