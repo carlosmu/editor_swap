@@ -8,6 +8,7 @@ class ES_OT_editor_swap(bpy.types.Operator):
     """Quick swap between editors"""
     bl_idname = "area.editor_swap"
     bl_label = "Editor Swap"  
+    bl_options = {'REGISTER'}
 
     # If the current editor is "X" assign "Y"...
     def execute(self, context):
