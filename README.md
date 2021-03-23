@@ -7,13 +7,21 @@ You need more space? For example joining the outliner and properties editor?
 This addon will allow you to exchange editors with a button or a shortcut. The linking between editors is fully configurable. You can swap between two or more editors sequentially.
 
 Additionally you can also hide the button if you prefer only to use the shortcut. You can also assign the shortcut of your preference.
+
 <br>
 <img src="demo/editor_swap.gif">
 <br><br>
 
 ## Supported versions of Blender
 
-I have tested the addon with 2.83, 2.90, 2.91, 2.92 and 2.93 alpha. If you have a problem with any of those versions, please let me know. 
+I have tested the addon with: 
+- 2.83
+- 2.90
+- 2.91
+- 2.92
+- 2.93 alpha
+
+If you have a problem with any of those versions, please let me know. 
 
 ## Usage
 
