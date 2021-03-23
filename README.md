@@ -45,4 +45,4 @@ Also you can change the shortcut on keymap prefs, on "Window" panel.
 
 ## Support
 
-You can support my work by buying this plugin on this page.
+You can support my work by buying this addon on gumroad.
