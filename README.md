@@ -1,34 +1,40 @@
 # Editor Swap (Blender Addon) 
-Quick swap between editors. <br>
-I made it to quickly switch between outliner and properties editor. 
-Which is especially useful on small screens or when you have very large hierarchies of objects. <br>
-The other editors were added later. I hope you find it useful.
+Are you searching for a quick way to swap between editors
 
+You need more space? For example joining the outliner and properties editor?
+
+## What is this addon for? 
+This addon will allow you to exchange editors with a button or a shortcut. The linking between editors is fully configurable. You can swap between two or more editors sequentially.
+
+Additionally you can also hide the button if you prefer only to use the shortcut. You can also assign the shortcut of your preference.
 <br>
 <img src="demo/editor_swap.gif">
 <br><br>
 
-## Suported Editors
-- Image / UV
-- Shader / Compositor
-- VSE / ClipEditor
-- DopeSheet / GraphEditor
-- Timeline / Info
-- Drivers / NLA
-- TextEditor / PythonConsole
-- Outliner / Properties
-- 3DVIEW / UserPreferences
+## Supported versions of Blender
+
+I have tested the addon with 2.83, 2.90, 2.91, 2.92 and 2.93 alpha. If you have a problem with any of those versions, please let me know. 
+
+## Usage
+
+Click on button on headers of editors, or use the shortcut.
+
+## What is the default shortcut?
+### CTRL + ALT + X
+Also you can change the shortcut on keymap prefs, on "Window" panel.
+
+## Editor Swap 1.0 
+<img src="demo/editor_swap_demo_1_0.gif">
+<br><br>
 
 ## Instalation
-1. Go to releases page: https://github.com/carlosmu/editor_swap/releases/
-2. Download the python file "editor_swap_[version].py"
+1. Go to addon page on Gumroad: https://gumroad.com/l/editorswap
+2. Download the zip file "editor_swap_[version].py"
 3. Go to Blender > User Preferences > Addons > Install 
-4. Select the previously downloaded file.
+4. Select the downloaded file.
 5. Activate the addon.
-6. In some cases, after installing, it is necessary to hover the mouse over the area to refresh it.
-7. Enjoy it!
+6. Enjoy it!
 
-# To-Do
-- Add preferences, for set custom editors (and none)
-- Add Shortcut Ctrl+Tab (and make it configurable)
-- Preview before release? (like brushes preview)
+## Support
+
+You can support my work by buying this plugin on this page.
