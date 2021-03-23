@@ -3,16 +3,15 @@
 ##############################################
 
 import bpy 
-
 class ES_UserPrefs(bpy.types.AddonPreferences):
     bl_idname = __package__
 
+    # Options
     es_enable_buttons : bpy.props.BoolProperty(
         name="Enable Buttons on Headers",
         description="Enable or Disable Buttons on Headers", 
         default=True
     )
-
     custom_icons = (
             ('WINDOW', 'Window', ''),
             ('ARROW_LEFTRIGHT', 'Arrows Left-Right', ''),
@@ -20,7 +19,6 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             ('FORCE_VORTEX', 'Force Vortex', ''),
             ('SHADERFX', 'FX', ''),
     )
-
     es_custom_icon : bpy.props.EnumProperty(
         name = "Custom Icon for Swap Buttons",
         description= "Choose an custom icon",
@@ -28,6 +26,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         default= 'WINDOW'
     )
 
+    # List Editors (in some cases the names do not match across the versions)
     image_editor = ('IMAGE_EDITOR', 'Image Editor', '') if bpy.app.version >= (2, 91, 0) else ('VIEW', 'Image Editor', '')
     texture_editor = ('TextureNodeTree', 'Texture Node Editor', '') if bpy.app.version >= (2, 90, 0) else ('TextureChannelMixing', 'Texture Node Editor', '')
     file_browser = ('FILES', 'File Browser', '') if bpy.app.version >= (2, 92, 0) else ('FILE_BROWSER', 'File Browser', '')
@@ -55,34 +54,26 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             ('PREFERENCES', 'Preferences', '')
     ]
     
+    # Append New Editors fon 2.92 and 2.93
     if bpy.app.version >= (2, 92, 0):
         editors.append(('GeometryNodeTree', 'Geometry Node Editor', ''),)
-
+        
     if bpy.app.version >= (2, 93, 0):
         editors.append(('ASSETS', 'Asset Browser', ''))
 
+    # Set the enums properties
     es_view_3d : bpy.props.EnumProperty(
         name = "3D Viewport",
         description= "",
         items = editors,
         default='ShaderNodeTree',
     )
-    
-    # If >= 291 image_editor else view
-    if bpy.app.version >= (2, 91, 0):
-        es_image_editor : bpy.props.EnumProperty(
-            name = "Image Editor",
-            description= "",
-            items = editors,
-            default='UV',
-        )
-    else:
-        es_view : bpy.props.EnumProperty(
-            name = "Image Editor",
-            description= "",
-            items = editors,
-            default='UV',
-        )
+    es_image_editor : bpy.props.EnumProperty(
+    name = "Image Editor",
+    description= "",
+    items = editors,
+    default='UV',
+    )
     es_uv : bpy.props.EnumProperty(
         name = "UV Editor",
         description= "",
@@ -95,19 +86,11 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         items = editors,
         default='CompositorNodeTree',
     )
-    # Podría usar esto en lugar de lo que hice con el image editor y view
     es_texture_node : bpy.props.EnumProperty(
         name = "Texture Node Editor",
         description= "",
         items = editors,
         default='TextureNodeTree' if bpy.app.version >= (2, 90, 0) else 'TextureChannelMixing',
-    )
-    if bpy.app.version >= (2, 92, 0):
-        es_geometry_node : bpy.props.EnumProperty(
-            name = "Geometry Node Editor",
-            description= "",
-            items = editors,
-            default='GeometryNodeTree',
     )
     es_shader_editor : bpy.props.EnumProperty(
         name = "Shader Editor",
@@ -187,58 +170,71 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         items = editors,
         default='OUTLINER',
     )
+    es_preferences : bpy.props.EnumProperty(
+        name = "Preferences",
+        description= "",
+        items = editors,
+        default='PREFERENCES',
+    ) 
 
+    # Set es_files_default
     if bpy.app.version > (2, 92, 0):
         es_files_default = 'ASSETS'
     elif bpy.app.version == (2, 92, 0):
         es_files_default = 'FILES'
     else:
         es_files_default = 'FILE_BROWSER'
-
     es_files : bpy.props.EnumProperty(
         name = "File Browser",
         description= "",
         items = editors,
         default = es_files_default,
-    )    
+    ) 
+
+    # If >= 2.92, use geometry nodes
+    if bpy.app.version >= (2, 92, 0):
+        es_geometry_node : bpy.props.EnumProperty(
+            name = "Geometry Node Editor",
+            description= "",
+            items = editors,
+            default='GeometryNodeTree',
+    )  
+    # If >= 2.93, use asset editor
     if bpy.app.version >= (2, 93, 0):
         es_assets : bpy.props.EnumProperty(
             name = "Asset Browser",
             description= "",
             items = editors,
             default='FILES' if bpy.app.version >= (2, 92, 0) else 'FILE_BROWSER',
-        )
-    es_preferences : bpy.props.EnumProperty(
-        name = "Preferences",
-        description= "",
-        items = editors,
-        default='PREFERENCES',
     )
-    
+
+    ##############################################
+    #    DRAW FUNCTION 
+    ##############################################
     def draw(self, context):
         layout = self.layout
         layout.use_property_split = True
         layout.use_property_decorate = True
+        layout.scale_y = 1.2
         
+        # Enable Button and Custom Icons
         layout.prop(self, "es_enable_buttons")
         if context.preferences.addons[__package__].preferences.es_enable_buttons:
-            layout.prop(self, "es_custom_icon", icon = context.preferences.addons[__package__].preferences.es_custom_icon)
-        layout.scale_y = 1.4
+            es_custom_icon = context.preferences.addons[__package__].preferences.es_custom_icon
+            layout.prop(self, "es_custom_icon", icon = es_custom_icon)
+        
+        # Choose the pairing editors
         box = layout.box()
         box.label(text="Choose the pairing editors. For none select the same editor", icon='WINDOW')
         box.separator()
 
         box.prop(self, "es_view_3d", text="3D Viewport")
-
-        if bpy.app.version >= (2, 91, 0):
-            box.prop(self, "es_image_editor", text="Image Editor")
-        else:
-            box.prop(self, "es_image_editor", text="Image Editor")
-
+        box.prop(self, "es_image_editor", text="Image Editor")
         box.prop(self, "es_uv", text="UV Editor")
         box.prop(self, "es_compositor", text="Compositor")
         box.prop(self, "es_texture_node", text="Texture Node Editor")
 
+        # GeoNodes only appears on 2.92 and above
         if bpy.app.version >= (2, 92, 0):
             box.prop(self, "es_geometry_node", text="Geometry Node Editor")
 
@@ -257,6 +253,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         box.prop(self, "es_properties", text="Properties")
         box.prop(self, "es_files", text="File Browser")
 
+        # Assets only appears on 2.93 and above
         if bpy.app.version >= (2, 93, 0):
             box.prop(self, "es_assets", text="Asset Browser")
 

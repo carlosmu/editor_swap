@@ -12,90 +12,85 @@ class ES_OT_editor_swap(bpy.types.Operator):
 
     # If the current editor is "X" assign "Y"...
     def execute(self, context):
-        # Cast properties from user_prefs
-        es_view_3d = context.preferences.addons[__package__].preferences.es_view_3d
-        
-        if bpy.app.version >= (2, 91, 0):
-            es_image_editor = context.preferences.addons[__package__].preferences.es_image_editor
-        else:
-            es_view = context.preferences.addons[__package__].preferences.es_view
-        
-        es_uv = context.preferences.addons[__package__].preferences.es_uv
-        es_compositor = context.preferences.addons[__package__].preferences.es_compositor
-        es_texture_node = context.preferences.addons[__package__].preferences.es_texture_node
+        # Cast Properties
+        es_props = context.preferences.addons[__package__].preferences
+    
+        # Cast editors props from user_prefs
+        es_view_3d = es_props.es_view_3d
+        es_uv = es_props.es_uv
+        es_compositor = es_props.es_compositor
+        es_texture_node = es_props.es_texture_node
+        es_shader_editor = es_props.es_shader_editor
+        es_sequence_editor = es_props.es_sequence_editor
+        es_clip_editor = es_props.es_clip_editor
+        es_dopesheet = es_props.es_dopesheet
+        es_timeline = es_props.es_timeline
+        es_fcurves = es_props.es_fcurves
+        es_drivers = es_props.es_drivers
+        es_nla_editor = es_props.es_nla_editor
+        es_text_editor = es_props.es_text_editor
+        es_console = es_props.es_console
+        es_info = es_props.es_info
+        es_outliner = es_props.es_outliner
+        es_properties = es_props.es_properties
+        es_files = es_props.es_files
+        es_preferences = es_props.es_preferences
+        es_image_editor = es_props.es_image_editor
         
         if bpy.app.version >= (2, 92, 0):
-            es_geometry_node = context.preferences.addons[__package__].preferences.es_geometry_node
-        
-        es_shader_editor = context.preferences.addons[__package__].preferences.es_shader_editor
-        es_sequence_editor = context.preferences.addons[__package__].preferences.es_sequence_editor
-        es_clip_editor = context.preferences.addons[__package__].preferences.es_clip_editor
-        es_dopesheet = context.preferences.addons[__package__].preferences.es_dopesheet
-        es_timeline = context.preferences.addons[__package__].preferences.es_timeline
-        es_fcurves = context.preferences.addons[__package__].preferences.es_fcurves
-        es_drivers = context.preferences.addons[__package__].preferences.es_drivers
-        es_nla_editor = context.preferences.addons[__package__].preferences.es_nla_editor
-        es_text_editor = context.preferences.addons[__package__].preferences.es_text_editor
-        es_console = context.preferences.addons[__package__].preferences.es_console
-        es_info = context.preferences.addons[__package__].preferences.es_info
-        es_outliner = context.preferences.addons[__package__].preferences.es_outliner
-        es_properties = context.preferences.addons[__package__].preferences.es_properties
-        es_files = context.preferences.addons[__package__].preferences.es_files
+            es_geometry_node = es_props.es_geometry_node    
         
         if bpy.app.version >= (2, 93, 0):
-            es_assets = context.preferences.addons[__package__].preferences.es_assets
-        es_preferences = context.preferences.addons[__package__].preferences.es_preferences
+            es_assets = es_props.es_assets
         
         # Cast the editors
-        if context.area.ui_type == 'VIEW_3D':
+        ui_type = context.area.ui_type
+
+        if ui_type == 'VIEW_3D':
             context.area.ui_type = es_view_3d
-        elif context.area.ui_type == 'IMAGE_EDITOR':
+        elif ui_type == 'IMAGE_EDITOR' or ui_type == 'VIEW':
             context.area.ui_type = es_image_editor
-        elif context.area.ui_type == 'VIEW':
-            context.area.ui_type = es_view
-        elif context.area.ui_type == 'UV':
+        elif ui_type == 'UV':
             context.area.ui_type = es_uv
-        elif context.area.ui_type == 'CompositorNodeTree': 
+        elif ui_type == 'CompositorNodeTree': 
             context.area.ui_type = es_compositor
-        elif context.area.ui_type == 'TextureNodeTree':
+        elif ui_type == 'TextureNodeTree' or ui_type == 'TextureChannelMixing':
             context.area.ui_type = es_texture_node
-        elif context.area.ui_type == 'TextureChannelMixing':
-            context.area.ui_type = es_texture_node
-        elif context.area.ui_type == 'GeometryNodeTree':
+        elif ui_type == 'GeometryNodeTree':
             context.area.ui_type = es_geometry_node
-        elif context.area.ui_type == 'ShaderNodeTree':
+        elif ui_type == 'ShaderNodeTree':
             context.area.ui_type = es_shader_editor
-        elif context.area.ui_type == 'SEQUENCE_EDITOR':
+        elif ui_type == 'SEQUENCE_EDITOR':
             context.area.ui_type = es_sequence_editor
-        elif context.area.ui_type == 'CLIP_EDITOR':
+        elif ui_type == 'CLIP_EDITOR':
             context.area.ui_type = es_clip_editor
-        elif context.area.ui_type == 'DOPESHEET':
+        elif ui_type == 'DOPESHEET':
             context.area.ui_type = es_dopesheet
-        elif context.area.ui_type == 'TIMELINE':
+        elif ui_type == 'TIMELINE':
             context.area.ui_type = es_timeline
-        elif context.area.ui_type == 'FCURVES':
+        elif ui_type == 'FCURVES':
             context.area.ui_type = es_fcurves
-        elif context.area.ui_type == 'DRIVERS':
+        elif ui_type == 'DRIVERS':
             context.area.ui_type = es_drivers
-        elif context.area.ui_type == 'NLA_EDITOR':
+        elif ui_type == 'NLA_EDITOR':
             context.area.ui_type = es_nla_editor
-        elif context.area.ui_type == 'TEXT_EDITOR':
+        elif ui_type == 'TEXT_EDITOR':
             context.area.ui_type = es_text_editor
-        elif context.area.ui_type == 'CONSOLE':
+        elif ui_type == 'CONSOLE':
             context.area.ui_type = es_console
-        elif context.area.ui_type == 'INFO':
+        elif ui_type == 'INFO':
             context.area.ui_type = es_info
-        elif context.area.ui_type == 'OUTLINER':
+        elif ui_type == 'OUTLINER':
             context.area.ui_type = es_outliner
-        elif context.area.ui_type == 'PROPERTIES':
+        elif ui_type == 'PROPERTIES':
             context.area.ui_type = es_properties
-        elif context.area.ui_type == 'FILES':
+        elif ui_type == 'FILES':
             context.area.ui_type =  es_files
-        elif context.area.ui_type == 'FILE_BROWSER':
+        elif ui_type == 'FILE_BROWSER':
             context.area.ui_type =  es_files
-        elif context.area.ui_type == 'ASSETS':
+        elif ui_type == 'ASSETS':
             context.area.ui_type = es_assets
-        elif context.area.ui_type == 'PREFERENCES':
+        elif ui_type == 'PREFERENCES':
             context.area.ui_type = es_preferences
         else: 
             pass

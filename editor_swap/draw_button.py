@@ -32,11 +32,7 @@ def draw_editor_swap(self, context):
     es_properties = es_props.es_properties
     es_files = es_props.es_files
     es_preferences = es_props.es_preferences
-    
-    if bpy.app.version >= (2, 91, 0):
-        es_image_editor = es_props.es_image_editor
-    else:
-        es_view = es_props.es_view
+    es_image_editor = es_props.es_image_editor
     
     if bpy.app.version >= (2, 92, 0):
         es_geometry_node = es_props.es_geometry_node    
@@ -45,7 +41,9 @@ def draw_editor_swap(self, context):
         es_assets = es_props.es_assets
 
 
-    # Show or hide buttons on headers
+    ####################################
+    # SHOW AND HIDE BUTTONS 
+    ####################################
     ui_type = context.area.ui_type
 
     if es_enable_buttons:
