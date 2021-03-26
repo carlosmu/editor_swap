@@ -46,3 +46,8 @@ Also you can change the shortcut on keymap prefs, on "Window" panel.
 ## Support
 
 You can support my work by buying this addon on gumroad.
+
+## Report a Bug
+
+If you have any problem, report it on Addon Preferences. I will solve it as soon as possible.
+<img src="demo/editorswap_bugreport.jpg"> 
