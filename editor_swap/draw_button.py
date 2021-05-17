@@ -5,7 +5,8 @@
 import bpy
 
 def draw_editor_swap(self, context):
-    # Variable for cast props from preferences
+    
+    # Variable for cast properties from preferences
     es_props = context.preferences.addons[__package__].preferences
 
     # Cast options from user_prefs
@@ -34,11 +35,17 @@ def draw_editor_swap(self, context):
     es_preferences = es_props.es_preferences
     es_image_editor = es_props.es_image_editor
     
+    # Add Geometry Nodes for 2.92 and above
     if bpy.app.version >= (2, 92, 0):
-        es_geometry_node = es_props.es_geometry_node    
-    
+        es_geometry_node = es_props.es_geometry_node  
+
+    # Add Spreadsheet for 2.93 and above
     if bpy.app.version >= (2, 93, 0):
-        es_assets = es_props.es_assets
+        es_spreadsheet = es_props.es_spreadsheet 
+    
+    # Uncomment this snippet to enable the asset browser 
+    # if bpy.app.version >= (3, 0, 0):
+    #     es_assets = es_props.es_assets
 
 
     ####################################
@@ -51,7 +58,7 @@ def draw_editor_swap(self, context):
             return
         if ui_type == 'IMAGE_EDITOR' and ui_type == es_image_editor:
             return
-        if ui_type == 'VIEW' and ui_type == es_view:
+        if ui_type == 'VIEW' and ui_type == es_image_editor:
             return
         if ui_type == 'UV' and ui_type == es_uv:
             return
@@ -95,6 +102,8 @@ def draw_editor_swap(self, context):
             return
         if ui_type == 'ASSETS' and ui_type == es_assets:
             return
+        if ui_type == 'SPREADSHEET' and ui_type == es_spreadsheet:
+            return
         if ui_type == 'PREFERENCES' and ui_type == es_preferences:
             return        
         else:
@@ -119,6 +128,7 @@ def register():
     bpy.types.VIEW3D_HT_header.prepend(draw_editor_swap)  
     bpy.types.USERPREF_HT_header.prepend(draw_editor_swap)    
     bpy.types.FILEBROWSER_HT_header.prepend(draw_editor_swap)    
+    bpy.types.SPREADSHEET_HT_header.prepend(draw_editor_swap)    
         
 def unregister():
     bpy.types.OUTLINER_HT_header.remove(draw_editor_swap)
@@ -136,3 +146,4 @@ def unregister():
     bpy.types.VIEW3D_HT_header.remove(draw_editor_swap)
     bpy.types.USERPREF_HT_header.remove(draw_editor_swap)
     bpy.types.FILEBROWSER_HT_header.remove(draw_editor_swap)
+    bpy.types.SPREADSHEET_HT_header.remove(draw_editor_swap)

@@ -51,15 +51,19 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             ('OUTLINER', 'Outliner', ''),
             ('PROPERTIES', 'Properties', ''),
             file_browser,
-            ('PREFERENCES', 'Preferences', '')
+            ('PREFERENCES', 'Preferences', '')            
     ]
     
     # Append New Editors fon 2.92 and 2.93
     if bpy.app.version >= (2, 92, 0):
         editors.append(('GeometryNodeTree', 'Geometry Node Editor', ''),)
-        
+
     if bpy.app.version >= (2, 93, 0):
-        editors.append(('ASSETS', 'Asset Browser', ''))
+        editors.append(('SPREADSHEET', 'Spreadsheet', ''))
+
+    # Uncomment this snippet to enable the asset browser 
+    # if bpy.app.version >= (3, 0, 0):
+    #     editors.append(('ASSETS', 'Asset Browser', ''))
 
     # Set the enums properties
     es_view_3d : bpy.props.EnumProperty(
@@ -178,12 +182,11 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
     ) 
 
     # Set es_files_default
-    if bpy.app.version > (2, 92, 0):
-        es_files_default = 'ASSETS'
-    elif bpy.app.version == (2, 92, 0):
+    if bpy.app.version >= (2, 92, 0):
         es_files_default = 'FILES'
     else:
         es_files_default = 'FILE_BROWSER'
+
     es_files : bpy.props.EnumProperty(
         name = "File Browser",
         description= "",
@@ -199,14 +202,22 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             items = editors,
             default='GeometryNodeTree',
     )  
-    # If >= 2.93, use asset editor
+    # If >= 2.93, use spreadsheet
     if bpy.app.version >= (2, 93, 0):
-        es_assets : bpy.props.EnumProperty(
-            name = "Asset Browser",
+        es_spreadsheet : bpy.props.EnumProperty(
+            name = "Spreadsheet",
             description= "",
             items = editors,
-            default='FILES' if bpy.app.version >= (2, 92, 0) else 'FILE_BROWSER',
+            default='SPREADSHEET',
     )
+    # Uncomment this snippet to enable the asset browser
+    # if bpy.app.version >= (3, 0, 0):
+    #     es_assets : bpy.props.EnumProperty(
+    #         name = "Asset Browser",
+    #         description= "",
+    #         items = editors,
+    #         default='ASSETS',
+    # )
 
     ##############################################
     #    DRAW FUNCTION 
@@ -238,6 +249,10 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         if bpy.app.version >= (2, 92, 0):
             box.prop(self, "es_geometry_node", text="Geometry Node Editor")
 
+        # Spreadsheet only appears on 2.93 and above
+        if bpy.app.version >= (2, 93, 0):
+            box.prop(self, "es_spreadsheet", text="Spreadsheet")
+
         box.prop(self, "es_shader_editor", text="Shader Editor")
         box.prop(self, "es_sequence_editor", text="Video Sequencer")
         box.prop(self, "es_clip_editor", text="Movie Clip Editor")
@@ -253,9 +268,9 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         box.prop(self, "es_properties", text="Properties")
         box.prop(self, "es_files", text="File Browser")
 
-        # Assets only appears on 2.93 and above
-        if bpy.app.version >= (2, 93, 0):
-            box.prop(self, "es_assets", text="Asset Browser")
+        # Uncomment this snippet to enable the asset browser
+        # if bpy.app.version >= (3, 0, 0):
+        #     box.prop(self, "es_assets", text="Asset Browser")
 
         box.prop(self, "es_preferences", text="Preferences")
         box.separator()

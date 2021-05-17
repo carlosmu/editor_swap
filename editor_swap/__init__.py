@@ -15,12 +15,12 @@ bl_info = {
     "name" : "Editor Swap",
     "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
     "blender" : (2, 83, 0),
-    "version" : (1, 0, 0),
+    "version" : (1, 1, 0),
     "category" : "User",
     "location" : "Editors headers",
     "description" : "Press ( CTRL ALT X ) or button for swap editors.",
     "warning" : "",
-    "doc_url" : "https://gumroad.com/l/editorswap",
+    "doc_url" : "https://carlosmunoz.com.ar/addons/editor-swap/",
     "tracker_url" : "https://github.com/carlosmu/editor_swap/issues",
 }
 

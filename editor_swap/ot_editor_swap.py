@@ -12,7 +12,8 @@ class ES_OT_editor_swap(bpy.types.Operator):
 
     # If the current editor is "X" assign "Y"...
     def execute(self, context):
-        # Cast Properties
+        
+        # Cast Properties from preferences
         es_props = context.preferences.addons[__package__].preferences
     
         # Cast editors props from user_prefs
@@ -37,11 +38,17 @@ class ES_OT_editor_swap(bpy.types.Operator):
         es_preferences = es_props.es_preferences
         es_image_editor = es_props.es_image_editor
         
+        # Add Geometry Nodes for 2.92 and above
         if bpy.app.version >= (2, 92, 0):
             es_geometry_node = es_props.es_geometry_node    
         
+        # Add Spreadsheet for 2.92 and above
         if bpy.app.version >= (2, 93, 0):
-            es_assets = es_props.es_assets
+            es_spreadsheet = es_props.es_spreadsheet
+
+        # Uncomment this snippet to enable the asset browser    
+        # if bpy.app.version >= (3, 0, 0):
+        #     es_assets = es_props.es_assets
         
         # Cast the editors
         ui_type = context.area.ui_type
@@ -90,6 +97,8 @@ class ES_OT_editor_swap(bpy.types.Operator):
             context.area.ui_type =  es_files
         elif ui_type == 'ASSETS':
             context.area.ui_type = es_assets
+        elif ui_type == 'SPREADSHEET':
+            context.area.ui_type = es_spreadsheet
         elif ui_type == 'PREFERENCES':
             context.area.ui_type = es_preferences
         else: 
