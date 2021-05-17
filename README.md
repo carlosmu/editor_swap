@@ -14,12 +14,9 @@ Additionally you can also hide the button if you prefer only to use the shortcut
 
 ## Supported versions of Blender
 
-I have tested the addon with: 
-- 2.83
-- 2.90
-- 2.91
-- 2.92
-- 2.93 alpha
+I have tested the addon with 2.83 and higher versions. If you have a problem with any of those versions, please let me know.
+
+For 2.93 use the last version (v 1.1)
 
 If you have a problem with any of those versions, please let me know. 
 
