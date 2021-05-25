@@ -128,7 +128,8 @@ def register():
     bpy.types.VIEW3D_HT_header.prepend(draw_editor_swap)  
     bpy.types.USERPREF_HT_header.prepend(draw_editor_swap)    
     bpy.types.FILEBROWSER_HT_header.prepend(draw_editor_swap)    
-    bpy.types.SPREADSHEET_HT_header.prepend(draw_editor_swap)    
+    if bpy.app.version >= (2, 93, 0):
+        bpy.types.SPREADSHEET_HT_header.prepend(draw_editor_swap)    
         
 def unregister():
     bpy.types.OUTLINER_HT_header.remove(draw_editor_swap)
@@ -146,4 +147,5 @@ def unregister():
     bpy.types.VIEW3D_HT_header.remove(draw_editor_swap)
     bpy.types.USERPREF_HT_header.remove(draw_editor_swap)
     bpy.types.FILEBROWSER_HT_header.remove(draw_editor_swap)
-    bpy.types.SPREADSHEET_HT_header.remove(draw_editor_swap)
+    if bpy.app.version >= (2, 93, 0):
+        bpy.types.SPREADSHEET_HT_header.remove(draw_editor_swap)

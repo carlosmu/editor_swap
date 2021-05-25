@@ -15,7 +15,7 @@ bl_info = {
     "name" : "Editor Swap",
     "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
     "blender" : (2, 83, 0),
-    "version" : (1, 1, 0),
+    "version" : (1, 1, 1),
     "category" : "User",
     "location" : "Editors headers",
     "description" : "Press ( CTRL ALT X ) or button for swap editors.",
