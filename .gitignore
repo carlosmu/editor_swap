@@ -1,9 +1,11 @@
 # Exclude pycache folder and extension
 /__pycache__/
 *.pyc
+**/BL_proxy/
 
 *.png~
 *.jpg~
 
-# Exclude .zip tests
-*.zip
+# Development releases
+*_alpha*
+*_beta*
