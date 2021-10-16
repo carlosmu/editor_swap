@@ -4,15 +4,25 @@
 
 import bpy
 
-def draw_editor_swap(self, context):
-    
+def draw_fullscreen(self, context):
     # Variable for cast properties from preferences
-    es_props = context.preferences.addons[__package__].preferences
+    es_props = bpy.context.preferences.addons[__package__].preferences 
 
+    layout = self.layout
+    if es_props.es_enable_maximize:
+        if context.region.alignment == 'RIGHT':
+            layout.operator(
+                "wm.window_fullscreen_toggle", icon='FULLSCREEN_ENTER', text="")
+
+
+def draw_editor_swap(self, context):  
+    # Variable for cast properties from preferences
+    es_props = bpy.context.preferences.addons[__package__].preferences 
+    
     # Cast options from user_prefs
-    es_enable_buttons = es_props.es_enable_buttons 
-    es_custom_icon = es_props.es_custom_icon 
-   
+    es_enable_buttons = es_props.es_enable_buttons
+    es_custom_icon = es_props.es_custom_icon
+
     # Cast editors props from user_prefs
     es_view_3d = es_props.es_view_3d
     es_uv = es_props.es_uv
@@ -34,22 +44,21 @@ def draw_editor_swap(self, context):
     es_files = es_props.es_files
     es_preferences = es_props.es_preferences
     es_image_editor = es_props.es_image_editor
-    
+
     # Add Geometry Nodes for 2.92 and above
     if bpy.app.version >= (2, 92, 0):
-        es_geometry_node = es_props.es_geometry_node  
+        es_geometry_node = es_props.es_geometry_node
 
     # Add Spreadsheet for 2.93 and above
     if bpy.app.version >= (2, 93, 0):
-        es_spreadsheet = es_props.es_spreadsheet 
-    
-    # Uncomment this snippet to enable the asset browser 
-    # if bpy.app.version >= (3, 0, 0):
-    #     es_assets = es_props.es_assets
+        es_spreadsheet = es_props.es_spreadsheet
 
+    # Add Asset Browser for 3.0 and above
+    if bpy.app.version >= (3, 0, 0):
+        es_assets = es_props.es_assets
 
     ####################################
-    # SHOW AND HIDE BUTTONS 
+    # SHOW AND HIDE BUTTONS
     ####################################
     ui_type = context.area.ui_type
 
@@ -105,32 +114,38 @@ def draw_editor_swap(self, context):
         if ui_type == 'SPREADSHEET' and ui_type == es_spreadsheet:
             return
         if ui_type == 'PREFERENCES' and ui_type == es_preferences:
-            return        
+            return
         else:
-            self.layout.operator("area.editor_swap",text="", icon=es_custom_icon)           
+            self.layout.operator("area.editor_swap",
+                                 text="", icon=es_custom_icon)
 
 ####################################
 # REGISTER/UNREGISTER
 ####################################
+
+
 def register():
     bpy.types.OUTLINER_HT_header.prepend(draw_editor_swap)
     bpy.types.PROPERTIES_HT_header.prepend(draw_editor_swap)
     bpy.types.DOPESHEET_HT_header.prepend(draw_editor_swap)
-    bpy.types.GRAPH_HT_header.prepend(draw_editor_swap)    
-    bpy.types.INFO_HT_header.prepend(draw_editor_swap)    
-    bpy.types.IMAGE_HT_header.prepend(draw_editor_swap)    
-    bpy.types.TEXT_HT_header.prepend(draw_editor_swap)    
-    bpy.types.CONSOLE_HT_header.prepend(draw_editor_swap)    
-    bpy.types.NODE_HT_header.prepend(draw_editor_swap)    
-    bpy.types.NLA_HT_header.prepend(draw_editor_swap)    
-    bpy.types.SEQUENCER_HT_header.prepend(draw_editor_swap)    
-    bpy.types.CLIP_HT_header.prepend(draw_editor_swap)    
-    bpy.types.VIEW3D_HT_header.prepend(draw_editor_swap)  
-    bpy.types.USERPREF_HT_header.prepend(draw_editor_swap)    
-    bpy.types.FILEBROWSER_HT_header.prepend(draw_editor_swap)    
+    bpy.types.GRAPH_HT_header.prepend(draw_editor_swap)
+    bpy.types.INFO_HT_header.prepend(draw_editor_swap)
+    bpy.types.IMAGE_HT_header.prepend(draw_editor_swap)
+    bpy.types.TEXT_HT_header.prepend(draw_editor_swap)
+    bpy.types.CONSOLE_HT_header.prepend(draw_editor_swap)
+    bpy.types.NODE_HT_header.prepend(draw_editor_swap)
+    bpy.types.NLA_HT_header.prepend(draw_editor_swap)
+    bpy.types.SEQUENCER_HT_header.prepend(draw_editor_swap)
+    bpy.types.CLIP_HT_header.prepend(draw_editor_swap)
+    bpy.types.VIEW3D_HT_header.prepend(draw_editor_swap)
+    bpy.types.USERPREF_HT_header.prepend(draw_editor_swap)
+    bpy.types.FILEBROWSER_HT_header.prepend(draw_editor_swap)
     if bpy.app.version >= (2, 93, 0):
-        bpy.types.SPREADSHEET_HT_header.prepend(draw_editor_swap)    
-        
+        bpy.types.SPREADSHEET_HT_header.prepend(draw_editor_swap)
+
+    bpy.types.TOPBAR_HT_upper_bar.prepend(draw_fullscreen)
+
+
 def unregister():
     bpy.types.OUTLINER_HT_header.remove(draw_editor_swap)
     bpy.types.PROPERTIES_HT_header.remove(draw_editor_swap)
@@ -149,3 +164,5 @@ def unregister():
     bpy.types.FILEBROWSER_HT_header.remove(draw_editor_swap)
     if bpy.app.version >= (2, 93, 0):
         bpy.types.SPREADSHEET_HT_header.remove(draw_editor_swap)
+
+    bpy.types.TOPBAR_HT_upper_bar.remove(draw_fullscreen)

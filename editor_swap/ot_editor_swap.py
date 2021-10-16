@@ -46,9 +46,9 @@ class ES_OT_editor_swap(bpy.types.Operator):
         if bpy.app.version >= (2, 93, 0):
             es_spreadsheet = es_props.es_spreadsheet
 
-        # Uncomment this snippet to enable the asset browser    
-        # if bpy.app.version >= (3, 0, 0):
-        #     es_assets = es_props.es_assets
+        # Add Asset Browser for 3.0 and above  
+        if bpy.app.version >= (3, 0, 0):
+            es_assets = es_props.es_assets
         
         # Cast the editors
         ui_type = context.area.ui_type

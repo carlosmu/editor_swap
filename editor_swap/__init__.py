@@ -11,37 +11,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from . import keymap
+from . import user_prefs
+from . import ot_editor_swap
+from . import draw_button
+
 bl_info = {
-    "name" : "Editor Swap",
-    "author" : "carlosmu <carlos.damian.munoz@gmail.com>",    
-    "blender" : (2, 83, 0),
-    "version" : (1, 1, 1),
-    "category" : "User",
-    "location" : "Editors headers",
-    "description" : "Press ( CTRL ALT X ) or button for swap editors.",
-    "warning" : "",
-    "doc_url" : "https://carlosmunoz.com.ar/addons/editor-swap/",
-    "tracker_url" : "https://github.com/carlosmu/editor_swap/issues",
+    "name": "Editor Swap",
+    "author": "carlosmu <carlos.damian.munoz@gmail.com>",
+    "blender": (2, 83, 0),
+    "version": (1, 2, 0),
+    "category": "User",
+    "location": "Editors headers",
+    "description": "Press ( CTRL ALT X ) or button for swap editors.",
+    "warning": "",
+    "doc_url": "https://blendermarket.com/products/editor-swap/",
+    "tracker_url": "https://blendermarket.com/creators/carlosmu",
 }
 
-import bpy
-
-from . import draw_button
-from . import ot_editor_swap
-from . import user_prefs
-from . import keymap
 
 ####################################
 # REGISTER/UNREGISTER
 ####################################
+
 def register():
     draw_button.register()
-    ot_editor_swap.register() 
-    user_prefs.register() 
-    keymap.register()    
-        
+    ot_editor_swap.register()
+    user_prefs.register()
+    keymap.register()
+
+
 def unregister():
     draw_button.unregister()
-    ot_editor_swap.unregister() 
-    user_prefs.unregister() 
-    keymap.unregister() 
+    ot_editor_swap.unregister()
+    user_prefs.unregister()
+    keymap.unregister()

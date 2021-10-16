@@ -8,8 +8,13 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
 
     # Options
     es_enable_buttons : bpy.props.BoolProperty(
-        name="Enable Buttons on Headers",
+        name="Enable Swap Buttons on Headers",
         description="Enable or Disable Buttons on Headers", 
+        default=True
+    )
+    es_enable_maximize : bpy.props.BoolProperty(
+        name="Enable Maximize Button on Topbar",
+        description="Enable or Disable Maximize Button on Topbar", 
         default=True
     )
     custom_icons = (
@@ -54,16 +59,16 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             ('PREFERENCES', 'Preferences', '')            
     ]
     
-    # Append New Editors fon 2.92 and 2.93
+    # Append New Editors for 2.92 and 2.93
     if bpy.app.version >= (2, 92, 0):
         editors.append(('GeometryNodeTree', 'Geometry Node Editor', ''),)
 
     if bpy.app.version >= (2, 93, 0):
         editors.append(('SPREADSHEET', 'Spreadsheet', ''))
 
-    # Uncomment this snippet to enable the asset browser 
-    # if bpy.app.version >= (3, 0, 0):
-    #     editors.append(('ASSETS', 'Asset Browser', ''))
+    # Append Asset Browser for 3.0 and above 
+    if bpy.app.version >= (3, 0, 0):
+        editors.append(('ASSETS', 'Asset Browser', ''))
 
     # Set the enums properties
     es_view_3d : bpy.props.EnumProperty(
@@ -73,10 +78,10 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         default='ShaderNodeTree',
     )
     es_image_editor : bpy.props.EnumProperty(
-    name = "Image Editor",
-    description= "",
-    items = editors,
-    default='UV',
+        name = "Image Editor",
+        description= "",
+        items = editors,
+        default='UV',
     )
     es_uv : bpy.props.EnumProperty(
         name = "UV Editor",
@@ -210,14 +215,14 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             items = editors,
             default='SPREADSHEET',
     )
-    # Uncomment this snippet to enable the asset browser
-    # if bpy.app.version >= (3, 0, 0):
-    #     es_assets : bpy.props.EnumProperty(
-    #         name = "Asset Browser",
-    #         description= "",
-    #         items = editors,
-    #         default='ASSETS',
-    # )
+    # If >= 3.0, use asset browser
+    if bpy.app.version >= (3, 0, 0):
+        es_assets : bpy.props.EnumProperty(
+            name = "Asset Browser",
+            description= "",
+            items = editors,
+            default='ASSETS',
+    )
 
     ##############################################
     #    DRAW FUNCTION 
@@ -230,6 +235,8 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         
         # Enable Button and Custom Icons
         layout.prop(self, "es_enable_buttons")
+        layout.prop(self, "es_enable_maximize")
+
         if context.preferences.addons[__package__].preferences.es_enable_buttons:
             es_custom_icon = context.preferences.addons[__package__].preferences.es_custom_icon
             layout.prop(self, "es_custom_icon", icon = es_custom_icon)
@@ -268,12 +275,14 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         box.prop(self, "es_properties", text="Properties")
         box.prop(self, "es_files", text="File Browser")
 
-        # Uncomment this snippet to enable the asset browser
-        # if bpy.app.version >= (3, 0, 0):
-        #     box.prop(self, "es_assets", text="Asset Browser")
+        # Asset Browser only appears on 3.0 and above
+        if bpy.app.version >= (3, 0, 0):
+            box.prop(self, "es_assets", text="Asset Browser")
 
         box.prop(self, "es_preferences", text="Preferences")
+
         box.separator()
+        
 
 ####################################
 # REGISTER/UNREGISTER
