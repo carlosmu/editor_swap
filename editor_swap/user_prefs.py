@@ -18,11 +18,11 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         default=True
     )
     custom_icons = (
-            ('WINDOW', 'Window', ''),
-            ('ARROW_LEFTRIGHT', 'Arrows Left-Right', ''),
-            ('FILE_REFRESH', 'Refresh', ''),
-            ('FORCE_VORTEX', 'Force Vortex', ''),
-            ('SHADERFX', 'FX', ''),
+            ('WINDOW', 'Window', '', 'WINDOW', 0),
+            ('ARROW_LEFTRIGHT', 'Arrows Left-Right', '', 'ARROW_LEFTRIGHT', 1),
+            ('FILE_REFRESH', 'Refresh', '', 'FILE_REFRESH', 2),
+            ('FORCE_VORTEX', 'Force Vortex', '', 'FORCE_VORTEX', 3),
+            ('SHADERFX', 'FX', '', 'SHADERFX', 4),
     )
     es_custom_icon : bpy.props.EnumProperty(
         name = "Custom Icon for Swap Buttons",
@@ -32,43 +32,43 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
     )
 
     # List Editors (in some cases the names do not match across the versions)
-    image_editor = ('IMAGE_EDITOR', 'Image Editor', '') if bpy.app.version >= (2, 91, 0) else ('VIEW', 'Image Editor', '')
-    texture_editor = ('TextureNodeTree', 'Texture Node Editor', '') if bpy.app.version >= (2, 90, 0) else ('TextureChannelMixing', 'Texture Node Editor', '')
-    file_browser = ('FILES', 'File Browser', '') if bpy.app.version >= (2, 92, 0) else ('FILE_BROWSER', 'File Browser', '')
+    image_editor = ('IMAGE_EDITOR', 'Image Editor', '', 'IMAGE', 1) if bpy.app.version >= (2, 91, 0) else ('VIEW', 'Image Editor', '', 'IMAGE', 1)
+    texture_editor = ('TextureNodeTree', 'Texture Node Editor', '', 'NODE_TEXTURE', 4) if bpy.app.version >= (2, 90, 0) else ('TextureChannelMixing', 'Texture Node Editor', '', 'NODE_TEXTURE', 4)
+    file_browser = ('FILES', 'File Browser', '', 'FILEBROWSER', 18) if bpy.app.version >= (2, 92, 0) else ('FILE_BROWSER', 'File Browser', '', 'FILEBROWSER', 18)
 
     editors = [
-            ('VIEW_3D', '3D Viewport', ''),
+            ('VIEW_3D', '3D Viewport', '', 'VIEW3D', 0),
             image_editor,
-            ('UV', 'UV Editor', ''),
-            ('CompositorNodeTree', 'Compositor', ''),
+            ('UV', 'UV Editor', '', 'UV', 2),
+            ('CompositorNodeTree', 'Compositor', '', 'NODE_COMPOSITING', 3),
             texture_editor,            
-            ('ShaderNodeTree', 'Shader Editor', ''),
-            ('SEQUENCE_EDITOR', 'Video Sequencer', ''),
-            ('CLIP_EDITOR', 'Movie Clip Editor', ''),
-            ('DOPESHEET', 'Dope Sheet', ''),
-            ('TIMELINE', 'Timeline', ''),
-            ('FCURVES', 'Graph Editor', ''),
-            ('DRIVERS', 'Drivers', ''),
-            ('NLA_EDITOR', 'Nonlinear Animation', ''),
-            ('TEXT_EDITOR', 'Text Editor', ''),
-            ('CONSOLE', 'Python Console', ''),
-            ('INFO', 'Info', ''),
-            ('OUTLINER', 'Outliner', ''),
-            ('PROPERTIES', 'Properties', ''),
+            ('ShaderNodeTree', 'Shader Editor', '', 'SHADING_RENDERED', 5),
+            ('SEQUENCE_EDITOR', 'Video Sequencer', '', 'SEQUENCE', 6),
+            ('CLIP_EDITOR', 'Movie Clip Editor', '', 'TRACKER', 7),
+            ('DOPESHEET', 'Dope Sheet', '', 'ACTION', 8),
+            ('TIMELINE', 'Timeline', '', 'TIME', 9),
+            ('FCURVES', 'Graph Editor', '', 'GRAPH', 10),
+            ('DRIVERS', 'Drivers', '', 'DRIVER', 11),
+            ('NLA_EDITOR', 'Nonlinear Animation', '', 'NLA', 12),
+            ('TEXT_EDITOR', 'Text Editor', '', 'TEXT', 13),
+            ('CONSOLE', 'Python Console', '', 'CONSOLE', 14),
+            ('INFO', 'Info', '', 'INFO', 15),
+            ('OUTLINER', 'Outliner', '', 'OUTLINER', 16),
+            ('PROPERTIES', 'Properties', '', 'PROPERTIES', 17),
             file_browser,
-            ('PREFERENCES', 'Preferences', '')            
+            ('PREFERENCES', 'Preferences', '', 'PREFERENCES', 19)            
     ]
     
     # Append New Editors for 2.92 and 2.93
     if bpy.app.version >= (2, 92, 0):
-        editors.append(('GeometryNodeTree', 'Geometry Node Editor', ''),)
+        editors.append(('GeometryNodeTree', 'Geometry Node Editor', '', 'NODETREE', 20),)
 
     if bpy.app.version >= (2, 93, 0):
-        editors.append(('SPREADSHEET', 'Spreadsheet', ''))
+        editors.append(('SPREADSHEET', 'Spreadsheet', '', 'SPREADSHEET', 21))
 
     # Append Asset Browser for 3.0 and above 
     if bpy.app.version >= (3, 0, 0):
-        editors.append(('ASSETS', 'Asset Browser', ''))
+        editors.append(('ASSETS', 'Asset Browser', '', 'ASSET_MANAGER', 22))
 
     # Set the enums properties
     es_view_3d : bpy.props.EnumProperty(
@@ -230,8 +230,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
     def draw(self, context):
         layout = self.layout
         layout.use_property_split = True
-        layout.use_property_decorate = True
-        layout.scale_y = 1.2
+        layout.use_property_decorate = False
         
         # Enable Button and Custom Icons
         layout.prop(self, "es_enable_buttons")
@@ -245,7 +244,8 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         box = layout.box()
         box.label(text="Choose the pairing editors. For none select the same editor", icon='WINDOW')
         box.separator()
-
+        # row = box.row()
+        # row.label(text="3D Viewport", icon='VIEW3D')
         box.prop(self, "es_view_3d", text="3D Viewport")
         box.prop(self, "es_image_editor", text="Image Editor")
         box.prop(self, "es_uv", text="UV Editor")
