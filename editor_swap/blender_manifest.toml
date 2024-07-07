@@ -1,0 +1,14 @@
+# Dont change this, is not referred to addon version
+schema_version = "1.0.0"
+
+id = "editor_swap"
+version = "1.3.0"
+name = "Editor Swap"
+tagline = "Fully Customizable Switching Between Blender Editors"
+maintainer = "carlosmu | carlos.damian.munoz@gmail.com"
+type = "add-on"
+tags = ["User Interface"]
+website = "https://blendermarket.com/products/editor-swap"
+
+blender_version_min = "2.83.0"
+license = ["SPDX:GPL-3.0-or-later",]

@@ -1,4 +1,4 @@
-import bpy
+import bpy # type: ignore
 
 addon_keymaps = []
 

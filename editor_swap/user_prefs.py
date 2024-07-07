@@ -2,7 +2,9 @@
 #    USER PREFERENCES 
 ##############################################
 
-import bpy 
+import bpy # type: ignore
+import rna_keymap_ui # type: ignore
+from . import ui_keymap
 class ES_UserPrefs(bpy.types.AddonPreferences):
     bl_idname = __package__
 
@@ -11,12 +13,12 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         name="Enable Swap Buttons on Headers",
         description="Enable or Disable Buttons on Headers", 
         default=True
-    )
+    ) # type: ignore
     es_enable_maximize : bpy.props.BoolProperty(
         name="Enable Maximize Button on Topbar",
         description="Enable or Disable Maximize Button on Topbar", 
         default=True
-    )
+    ) # type: ignore
     custom_icons = (
             ('WINDOW', 'Window', '', 'WINDOW', 0),
             ('ARROW_LEFTRIGHT', 'Arrows Left-Right', '', 'ARROW_LEFTRIGHT', 1),
@@ -29,7 +31,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         description= "Choose an custom icon",
         items = custom_icons,
         default= 'WINDOW'
-    )
+    ) # type: ignore
 
     # List Editors (in some cases the names do not match across the versions)
     image_editor = ('IMAGE_EDITOR', 'Image Editor', '', 'IMAGE', 1) if bpy.app.version >= (2, 91, 0) else ('VIEW', 'Image Editor', '', 'IMAGE', 1)
@@ -76,115 +78,115 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         description= "",
         items = editors,
         default='ShaderNodeTree',
-    )
+    )# type: ignore
     es_image_editor : bpy.props.EnumProperty(
         name = "Image Editor",
         description= "",
         items = editors,
         default='UV',
-    )
+    )# type: ignore
     es_uv : bpy.props.EnumProperty(
         name = "UV Editor",
         description= "",
         items = editors,
         default='IMAGE_EDITOR' if bpy.app.version >= (2, 91, 0) else 'VIEW',
-    )
+    )# type: ignore
     es_compositor : bpy.props.EnumProperty(
         name = "Compositor",
         description= "",
         items = editors,
         default='CompositorNodeTree',
-    )
+    )# type: ignore
     es_texture_node : bpy.props.EnumProperty(
         name = "Texture Node Editor",
         description= "",
         items = editors,
         default='TextureNodeTree' if bpy.app.version >= (2, 90, 0) else 'TextureChannelMixing',
-    )
+    )# type: ignore
     es_shader_editor : bpy.props.EnumProperty(
         name = "Shader Editor",
         description= "",
         items = editors,
         default='VIEW_3D',
-    )
+    )# type: ignore
     es_sequence_editor : bpy.props.EnumProperty(
         name = "Video Sequencer",
         description= "",
         items = editors,
         default='CLIP_EDITOR',
-    )
+    )# type: ignore
     es_clip_editor : bpy.props.EnumProperty(
         name = "Movie Clip Editor",
         description= "",
         items = editors,
         default='SEQUENCE_EDITOR',
-    )
+    )# type: ignore
     es_dopesheet : bpy.props.EnumProperty(
         name = "Dope Sheet",
         description= "",
         items = editors,
         default='FCURVES',
-    )
+    )# type: ignore
     es_timeline : bpy.props.EnumProperty(
         name = "Timeline",
         description= "",
         items = editors,
         default='INFO',
-    )
+    )# type: ignore
     es_fcurves : bpy.props.EnumProperty(
         name = "Graph Editor",
         description= "",
         items = editors,
         default='DOPESHEET',
-    )
+    )# type: ignore
     es_drivers : bpy.props.EnumProperty(
         name = "Drivers",
         description= "",
         items = editors,
         default='DRIVERS',
-    )
+    )# type: ignore
     es_nla_editor : bpy.props.EnumProperty(
         name = "Nonlinear Animation",
         description= "",
         items = editors,
         default='NLA_EDITOR',
-    )
+    )# type: ignore
     es_text_editor : bpy.props.EnumProperty(
         name = "Text Editor",
         description= "",
         items = editors,
         default='CONSOLE',
-    )
+    )# type: ignore
     es_console : bpy.props.EnumProperty(
         name = "Python Console",
         description= "",
         items = editors,
         default='TEXT_EDITOR',
-    )
+    )# type: ignore
     es_info : bpy.props.EnumProperty(
         name = "Info",
         description= "",
         items = editors,
         default='TIMELINE',
-    )
+    )# type: ignore
     es_outliner : bpy.props.EnumProperty(
         name = "Outliner",
         description= "",
         items = editors,
         default='PROPERTIES',
-    )
+    )# type: ignore
     es_properties : bpy.props.EnumProperty(
         name = "Properties",
         description= "",
         items = editors,
         default='OUTLINER',
-    )
+    )# type: ignore
     es_preferences : bpy.props.EnumProperty(
         name = "Preferences",
         description= "",
         items = editors,
         default='PREFERENCES',
-    ) 
+    ) # type: ignore
 
     # Set es_files_default
     if bpy.app.version >= (2, 92, 0):
@@ -197,7 +199,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         description= "",
         items = editors,
         default = es_files_default,
-    ) 
+    ) # type: ignore
 
     # If >= 2.92, use geometry nodes
     if bpy.app.version >= (2, 92, 0):
@@ -206,7 +208,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             description= "",
             items = editors,
             default='GeometryNodeTree',
-    )  
+    )  # type: ignore
     # If >= 2.93, use spreadsheet
     if bpy.app.version >= (2, 93, 0):
         es_spreadsheet : bpy.props.EnumProperty(
@@ -214,7 +216,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             description= "",
             items = editors,
             default='SPREADSHEET',
-    )
+    )# type: ignore
     # If >= 3.0, use asset browser
     if bpy.app.version >= (3, 0, 0):
         es_assets : bpy.props.EnumProperty(
@@ -222,7 +224,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             description= "",
             items = editors,
             default='ASSETS',
-    )
+    )# type: ignore
 
     ##############################################
     #    DRAW FUNCTION 
@@ -231,14 +233,45 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         layout = self.layout
         layout.use_property_split = True
         layout.use_property_decorate = False
+        box = layout.box()
         
+        box.label(text="User Interface:",icon="RESTRICT_VIEW_OFF")
         # Enable Button and Custom Icons
-        layout.prop(self, "es_enable_buttons")
-        layout.prop(self, "es_enable_maximize")
+        box.prop(self, "es_enable_buttons")
+        box.prop(self, "es_enable_maximize")
 
         if context.preferences.addons[__package__].preferences.es_enable_buttons:
             es_custom_icon = context.preferences.addons[__package__].preferences.es_custom_icon
-            layout.prop(self, "es_custom_icon", icon = es_custom_icon)
+            box.prop(self, "es_custom_icon", icon = es_custom_icon)
+
+        # Custom shortcut
+        box = layout.box()
+        col = box.column()
+        col.label(text="Keymap Settings:",icon="HAND")
+        col.separator()
+        wm = bpy.context.window_manager
+        kc = wm.keyconfigs.user
+        old_km_name = ""
+        get_kmi_l = []
+        for km_add, kmi_add in ui_keymap.addon_keymaps:
+            for km_con in kc.keymaps:
+                if km_add.name == km_con.name:
+                    km = km_con
+                    break
+
+            for kmi_con in km.keymap_items:
+                if kmi_add.idname == kmi_con.idname:
+                    if kmi_add.name == kmi_con.name:
+                        get_kmi_l.append((km,kmi_con))
+
+        get_kmi_l = sorted(set(get_kmi_l), key=get_kmi_l.index)
+
+        for km, kmi in get_kmi_l:
+            col.context_pointer_set("keymap", km)
+            rna_keymap_ui.draw_kmi([], kc, km, kmi, col, 0)
+            col.separator()
+
+
         
         # Choose the pairing editors
         box = layout.box()

@@ -11,7 +11,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from . import keymap
+from . import ui_keymap
 from . import user_prefs
 from . import ot_editor_swap
 from . import draw_button
@@ -38,11 +38,11 @@ def register():
     draw_button.register()
     ot_editor_swap.register()
     user_prefs.register()
-    keymap.register()
+    ui_keymap.register()
 
 
 def unregister():
     draw_button.unregister()
     ot_editor_swap.unregister()
     user_prefs.unregister()
-    keymap.unregister()
+    ui_keymap.unregister()
