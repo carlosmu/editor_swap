@@ -12,6 +12,10 @@ class ES_OT_editor_swap(bpy.types.Operator):
 
     # If the current editor is "X" assign "Y"...
     def execute(self, context):
+
+        if context.area is None:
+            self.report({'ERROR'}, "No active area found. Please put the cursor inside an area/editor")
+            return {'CANCELLED'}
         
         # Cast Properties from preferences
         es_props = context.preferences.addons[__package__].preferences
