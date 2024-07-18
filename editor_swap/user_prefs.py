@@ -3,8 +3,14 @@
 ##############################################
 
 import bpy # type: ignore
-import rna_keymap_ui # type: ignore
+# import rna_keymap_ui # use this for import blender built-in keymap ui
+from . import rna_keymap_ui # use this for import addon override keymap ui
 from . import ui_keymap
+
+import os
+import bpy.utils.previews # type: ignore
+# icons_dict = bpy.utils.previews.new()
+
 class ES_UserPrefs(bpy.types.AddonPreferences):
     bl_idname = __package__
 
@@ -19,6 +25,9 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         description="Enable or Disable Maximize Button on Topbar", 
         default=True
     ) # type: ignore
+    # global addon_icons
+    # addon_icon = addon_icons["custom_icon"].icon_id
+
     custom_icons = (
             ('WINDOW', 'Window', '', 'WINDOW', 0),
             ('ARROW_LEFTRIGHT', 'Arrows Left-Right', '', 'ARROW_LEFTRIGHT', 1),
@@ -230,10 +239,16 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
     #    DRAW FUNCTION 
     ##############################################
     def draw(self, context):
+        
+        global addon_icons
+
         layout = self.layout
         layout.use_property_split = True
         layout.use_property_decorate = False
         box = layout.box()
+
+        data_ico = str(addon_icons["custom_icon"].icon_id)
+        box.label(text=data_ico, icon_value=addon_icons["custom_icon"].icon_id)
         
         box.label(text="User Interface:",icon="RESTRICT_VIEW_OFF")
         # Enable Button and Custom Icons
@@ -316,12 +331,23 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
 
         box.separator()
         
+addon_icons = None
 
 ####################################
 # REGISTER/UNREGISTER
 ####################################
 def register():
     bpy.utils.register_class(ES_UserPrefs) 
+    # Custom icons
+    global addon_icons
+    addon_icons = bpy.utils.previews.new()
+    addon_path =  os.path.dirname(__file__)
+    icons_dir = os.path.join(addon_path, "icons")
+    
+    addon_icons.load("custom_icon", os.path.join(icons_dir, "icon_01.svg"), 'IMAGE')
         
 def unregister():
     bpy.utils.unregister_class(ES_UserPrefs)
+    # Custo icons
+    global addon_icons
+    bpy.utils.previews.remove(addon_icons)
