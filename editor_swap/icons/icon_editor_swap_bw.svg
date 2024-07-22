@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(0.24,0,0,0.24,0,0)">
+        <g id="icon_editor_swap_color" transform="matrix(4.81129,0,0,4.81129,7.03731,-74.383)">
+            <g transform="matrix(0.929913,0,-1.7365e-32,0.742509,-14.3343,-1.51285)">
+                <path d="M25.091,28.448L18.311,28.448L20.953,31.757L18.386,31.757L14.835,27.311L18.39,22.859L20.958,22.859L18.311,26.174L25.091,26.174L26.93,28.448L26.93,31.816L25.091,31.816L25.091,28.448Z" style="fill:rgb(105,174,238);"/>
+            </g>
+            <g transform="matrix(-0.942183,-1.15384e-16,9.21309e-17,-0.752306,25.5166,45.9591)">
+                <path d="M26.776,28.455L26.776,31.7L24.961,31.7L24.961,28.448L18.311,28.448L20.953,31.757L18.386,31.757L14.835,27.311L18.39,22.859L20.958,22.859L18.311,26.174L24.957,26.174L26.776,28.455Z" style="fill:rgb(255,132,68);"/>
+            </g>
+        </g>
+        <g id="icon_editor_swap_bw" transform="matrix(4.81129,0,0,4.81129,7.03731,-74.383)">
+            <g transform="matrix(0.929913,0,-1.7365e-32,0.742509,-14.3343,-1.51285)">
+                <path d="M25.091,28.448L18.311,28.448L20.953,31.757L18.386,31.757L14.835,27.311L18.39,22.859L20.958,22.859L18.311,26.174L25.091,26.174L26.93,28.448L26.93,31.816L25.091,31.816L25.091,28.448Z" style="fill:white;"/>
+            </g>
+            <g transform="matrix(-0.942183,-1.15384e-16,9.21309e-17,-0.752306,25.5166,45.9591)">
+                <path d="M26.776,28.455L26.776,31.7L24.961,31.7L24.961,28.448L18.311,28.448L20.953,31.757L18.386,31.757L14.835,27.311L18.39,22.859L20.958,22.859L18.311,26.174L24.957,26.174L26.776,28.455Z" style="fill:rgb(161,161,161);"/>
+            </g>
+        </g>
+    </g>
+</svg>
