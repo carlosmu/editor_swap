@@ -10,7 +10,6 @@ from . import ui_keymap
 import os
 import bpy.utils.previews # type: ignore
 # icons_dict = bpy.utils.previews.new()
-
 class ES_UserPrefs(bpy.types.AddonPreferences):
     bl_idname = __package__
 
@@ -25,21 +24,24 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         description="Enable or Disable Maximize Button on Topbar", 
         default=True
     ) # type: ignore
-    # global addon_icons
-    # addon_icon = addon_icons["custom_icon"].icon_id
 
     custom_icons = (
-            ('WINDOW', 'Window', '', 'WINDOW', 0),
-            ('ARROW_LEFTRIGHT', 'Arrows Left-Right', '', 'ARROW_LEFTRIGHT', 1),
-            ('FILE_REFRESH', 'Refresh', '', 'FILE_REFRESH', 2),
-            ('FORCE_VORTEX', 'Force Vortex', '', 'FORCE_VORTEX', 3),
-            ('SHADERFX', 'FX', '', 'SHADERFX', 4),
+            ('IES_COLOR', 'Icon Editor Swap Color', '', 'IES_COLOR', 0),
+            ('IES_BW', 'Icon Editor Swap B/W', '', 'IES_BW', 1),
+            ('WINDOW', 'Window', '', 'WINDOW', 2),
+            ('ARROW_LEFTRIGHT', 'Arrows Left-Right', '', 'ARROW_LEFTRIGHT', 3),
+            ('FILE_REFRESH', 'Refresh', '', 'FILE_REFRESH', 4),
+            ('FORCE_VORTEX', 'Force Vortex', '', 'FORCE_VORTEX', 5),
+            ('SHADERFX', 'FX', '', 'SHADERFX', 6),
+            # ("EDITOR_SWAP_COLOR", "Color", "", addon_icons["icon_editor_swap_color"].icon_id, 0),
+            # ('EDITOR_SWAP_COLOR', 'FX', '', addon_icons["icon_editor_swap_color"].icon_id, 5),
+            # ('CUSTOM', 'Custom', addon_icons["custom_icon"].icon_id, 'CUSTOM', 5),
     )
     es_custom_icon : bpy.props.EnumProperty(
         name = "Custom Icon for Swap Buttons",
         description= "Choose an custom icon",
         items = custom_icons,
-        default= 'WINDOW'
+        default= 'IES_COLOR'
     ) # type: ignore
 
     # List Editors (in some cases the names do not match across the versions)
@@ -234,6 +236,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
             items = editors,
             default='ASSETS',
     )# type: ignore
+        
 
     ##############################################
     #    DRAW FUNCTION 
@@ -242,22 +245,28 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         
         global addon_icons
 
+
         layout = self.layout
         layout.use_property_split = True
         layout.use_property_decorate = False
         box = layout.box()
-
-        data_ico = str(addon_icons["custom_icon"].icon_id)
-        box.label(text=data_ico, icon_value=addon_icons["custom_icon"].icon_id)
         
+        data_ico = str(addon_icons["icon_editor_swap_color"].icon_id)
+        box.label(text=data_ico, icon_value=addon_icons["icon_editor_swap_color"].icon_id)
+
         box.label(text="User Interface:",icon="RESTRICT_VIEW_OFF")
         # Enable Button and Custom Icons
-        box.prop(self, "es_enable_buttons")
         box.prop(self, "es_enable_maximize")
+        box.prop(self, "es_enable_buttons")
 
         if context.preferences.addons[__package__].preferences.es_enable_buttons:
             es_custom_icon = context.preferences.addons[__package__].preferences.es_custom_icon
-            box.prop(self, "es_custom_icon", icon = es_custom_icon)
+            if context.preferences.addons[__package__].preferences.es_custom_icon == 'IES_COLOR':
+                box.prop(self, "es_custom_icon", icon_value=addon_icons["icon_editor_swap_color"].icon_id)
+            elif context.preferences.addons[__package__].preferences.es_custom_icon == 'IES_BW':
+                box.prop(self, "es_custom_icon", icon_value=addon_icons["icon_editor_swap_bw"].icon_id)
+            else:
+                box.prop(self, "es_custom_icon", icon = es_custom_icon)
 
         # Custom shortcut
         box = layout.box()
@@ -344,7 +353,8 @@ def register():
     addon_path =  os.path.dirname(__file__)
     icons_dir = os.path.join(addon_path, "icons")
     
-    addon_icons.load("custom_icon", os.path.join(icons_dir, "icon_01.svg"), 'IMAGE')
+    addon_icons.load("icon_editor_swap_color", os.path.join(icons_dir, "icon_editor_swap_color.svg"), 'IMAGE')
+    addon_icons.load("icon_editor_swap_bw", os.path.join(icons_dir, "icon_editor_swap_bw.svg"), 'IMAGE')
         
 def unregister():
     bpy.utils.unregister_class(ES_UserPrefs)

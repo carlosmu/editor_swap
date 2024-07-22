@@ -3,6 +3,8 @@
 ####################################
 
 import bpy
+import os
+import bpy.utils.previews # type: ignore
 
 def draw_fullscreen(self, context):
     # Variable for cast properties from preferences
@@ -116,7 +118,14 @@ def draw_editor_swap(self, context):
         if ui_type == 'PREFERENCES' and ui_type == es_preferences:
             return
         else:
-            self.layout.operator("area.editor_swap",
+            if context.preferences.addons[__package__].preferences.es_custom_icon == 'IES_COLOR':
+                self.layout.operator("area.editor_swap",
+                                     text="", icon_value=addon_icons["icon_editor_swap_color"].icon_id)
+            elif context.preferences.addons[__package__].preferences.es_custom_icon == 'IES_BW':
+                self.layout.operator("area.editor_swap",
+                                     text="", icon_value=addon_icons["icon_editor_swap_bw"].icon_id)
+            else:
+                self.layout.operator("area.editor_swap",
                                  text="", icon=es_custom_icon)
 
 ####################################
@@ -144,6 +153,14 @@ def register():
         bpy.types.SPREADSHEET_HT_header.prepend(draw_editor_swap)
 
     bpy.types.TOPBAR_HT_upper_bar.prepend(draw_fullscreen)
+    # Custom icons
+    global addon_icons
+    addon_icons = bpy.utils.previews.new()
+    addon_path =  os.path.dirname(__file__)
+    icons_dir = os.path.join(addon_path, "icons")
+    
+    addon_icons.load("icon_editor_swap_color", os.path.join(icons_dir, "icon_editor_swap_color.svg"), 'IMAGE')
+    addon_icons.load("icon_editor_swap_bw", os.path.join(icons_dir, "icon_editor_swap_bw.svg"), 'IMAGE')
 
 
 def unregister():
@@ -166,3 +183,7 @@ def unregister():
         bpy.types.SPREADSHEET_HT_header.remove(draw_editor_swap)
 
     bpy.types.TOPBAR_HT_upper_bar.remove(draw_fullscreen)
+    # Custo icons
+    global addon_icons
+    bpy.utils.previews.remove(addon_icons)
+

@@ -20,7 +20,7 @@ bl_info = {
     "name": "Editor Swap",
     "author": "carlosmu <carlos.damian.munoz@gmail.com>",
     "blender": (2, 83, 0),
-    "version": (1, 3, 0), # fix error when area == None 
+    "version": (1, 3, 0), 
     "category": "User",
     "location": "Editors headers",
     "description": "Press ( CTRL ALT X ) or button for swap editors.",
@@ -29,6 +29,10 @@ bl_info = {
     "tracker_url": "https://blendermarket.com/creators/carlosmu",
 }
 
+### Changelog
+# Fix error when area == None 
+# Add support for 4.2 Extensions System
+# Add custom icon
 
 ####################################
 # REGISTER/UNREGISTER

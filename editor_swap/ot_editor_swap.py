@@ -17,6 +17,8 @@ class ES_OT_editor_swap(bpy.types.Operator):
             self.report({'ERROR'}, "No active area found. Please put the cursor inside an area/editor")
             return {'CANCELLED'}
         
+        global addon_icons
+        
         # Cast Properties from preferences
         es_props = context.preferences.addons[__package__].preferences
     
