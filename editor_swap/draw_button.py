@@ -21,6 +21,7 @@ def draw_editor_swap(self, context):
     # Variable for cast properties from preferences
     es_props = bpy.context.preferences.addons[__package__].preferences 
     
+    
     # Cast options from user_prefs
     es_enable_buttons = es_props.es_enable_buttons
     es_custom_icon = es_props.es_custom_icon
@@ -118,15 +119,18 @@ def draw_editor_swap(self, context):
         if ui_type == 'PREFERENCES' and ui_type == es_preferences:
             return
         else:
-            if context.preferences.addons[__package__].preferences.es_custom_icon == 'IES_COLOR':
-                self.layout.operator("area.editor_swap",
-                                     text="", icon_value=addon_icons["icon_editor_swap_color"].icon_id)
-            elif context.preferences.addons[__package__].preferences.es_custom_icon == 'IES_BW':
-                self.layout.operator("area.editor_swap",
-                                     text="", icon_value=addon_icons["icon_editor_swap_bw"].icon_id)
+            layout = self.layout
+            icon_color = addon_icons["icon_editor_swap_color"].icon_id
+            icon_bw = addon_icons["icon_editor_swap_bw"].icon_id
+
+            if es_props.es_custom_icon == 'EDITOR_SWAP_COLOR':
+                layout.operator("area.editor_swap", text="", icon_value=icon_color)
+
+            elif es_props.es_custom_icon == 'EDITOR_SWAP_BW':
+                layout.operator("area.editor_swap", text="", icon_value=icon_bw)
+            
             else:
-                self.layout.operator("area.editor_swap",
-                                 text="", icon=es_custom_icon)
+                layout.operator("area.editor_swap",text="", icon=es_custom_icon)
 
 ####################################
 # REGISTER/UNREGISTER
