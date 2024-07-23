@@ -23,16 +23,16 @@ bl_info = {
     "version": (1, 3, 0), 
     "category": "User",
     "location": "Editors headers",
-    "description": "Press ( CTRL ALT X ) or button for swap editors.",
+    "description": "Swap Editors by pressing shortcut or button.",
     "warning": "",
     "doc_url": "https://blendermarket.com/products/editor-swap/",
     "tracker_url": "https://blendermarket.com/creators/carlosmu",
 }
 
-### Changelog
+### Changelog 1.3.0
 # Fix error when area == None 
 # Add support for 4.2 Extensions System
-# Add custom icon
+# Add custom icons
 
 ####################################
 # REGISTER/UNREGISTER

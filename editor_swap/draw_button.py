@@ -2,9 +2,9 @@
 # DRAW BUTTONS
 ####################################
 
-import bpy
-import os
+import bpy # type: ignore
 import bpy.utils.previews # type: ignore
+from . import user_prefs
 
 def draw_fullscreen(self, context):
     # Variable for cast properties from preferences
@@ -13,8 +13,7 @@ def draw_fullscreen(self, context):
     layout = self.layout
     if es_props.es_enable_maximize:
         if context.region.alignment == 'RIGHT':
-            layout.operator(
-                "wm.window_fullscreen_toggle", icon='FULLSCREEN_ENTER', text="")
+            layout.operator("wm.window_fullscreen_toggle", icon='FULLSCREEN_ENTER', text="")
 
 
 def draw_editor_swap(self, context):  
@@ -120,8 +119,8 @@ def draw_editor_swap(self, context):
             return
         else:
             layout = self.layout
-            icon_color = addon_icons["icon_editor_swap_color"].icon_id
-            icon_bw = addon_icons["icon_editor_swap_bw"].icon_id
+            icon_color = user_prefs.addon_icons["icon_editor_swap_color"].icon_id
+            icon_bw = user_prefs.addon_icons["icon_editor_swap_bw"].icon_id
 
             if es_props.es_custom_icon == 'EDITOR_SWAP_COLOR':
                 layout.operator("area.editor_swap", text="", icon_value=icon_color)
@@ -157,15 +156,6 @@ def register():
         bpy.types.SPREADSHEET_HT_header.prepend(draw_editor_swap)
 
     bpy.types.TOPBAR_HT_upper_bar.prepend(draw_fullscreen)
-    # Custom icons
-    global addon_icons
-    addon_icons = bpy.utils.previews.new()
-    addon_path =  os.path.dirname(__file__)
-    icons_dir = os.path.join(addon_path, "icons")
-    
-    addon_icons.load("icon_editor_swap_color", os.path.join(icons_dir, "icon_editor_swap_color.svg"), 'IMAGE')
-    addon_icons.load("icon_editor_swap_bw", os.path.join(icons_dir, "icon_editor_swap_bw.svg"), 'IMAGE')
-
 
 def unregister():
     bpy.types.OUTLINER_HT_header.remove(draw_editor_swap)
@@ -187,7 +177,3 @@ def unregister():
         bpy.types.SPREADSHEET_HT_header.remove(draw_editor_swap)
 
     bpy.types.TOPBAR_HT_upper_bar.remove(draw_fullscreen)
-    # Custo icons
-    global addon_icons
-    bpy.utils.previews.remove(addon_icons)
-

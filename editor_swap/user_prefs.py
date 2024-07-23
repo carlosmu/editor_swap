@@ -9,6 +9,7 @@ from . import ui_keymap
 
 import os
 from bpy.utils import previews # type: ignore
+
 addon_icons = previews.new()
 
 addon_path =  os.path.dirname(__file__)
@@ -16,13 +17,6 @@ icons_dir = os.path.join(addon_path, "icons")
 
 addon_icons.load("icon_editor_swap_color", os.path.join(icons_dir, "icon_editor_swap_color.svg"), 'IMAGE')
 addon_icons.load("icon_editor_swap_bw", os.path.join(icons_dir, "icon_editor_swap_bw.svg"), 'IMAGE')
-
-# def get_custom_icons(self, context):
-#     items = [
-#         ('EDITOR_SWAP_COLOR', 'Color', '', addon_icons["icon_editor_swap_color"].icon_id, 0),
-#         ('EDITOR_SWAP_BW', 'FX', '', addon_icons["icon_editor_swap_bw"].icon_id, 1),
-#     ]
-#     return items
 
 # icons_dict = bpy.utils.previews.new()
 class ES_UserPrefs(bpy.types.AddonPreferences):
@@ -40,7 +34,7 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
         default=True
     ) # type: ignore
 
-    custom_icons = [
+    icons_elements = [
             ("EDITOR_SWAP_COLOR", "Color Icon", "", addon_icons["icon_editor_swap_color"].icon_id, 0),
             ("EDITOR_SWAP_BW", "Greyscale Icon", "", addon_icons["icon_editor_swap_bw"].icon_id, 1),
             ('WINDOW', 'Window', '', 'WINDOW', 2),
@@ -52,10 +46,8 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
     es_custom_icon : bpy.props.EnumProperty(
         name = "Swap Icon",
         description= "Choose an custom icon",
-        items = custom_icons,
+        items = icons_elements,
         default= 'EDITOR_SWAP_COLOR'
-        # items = get_custom_icons,
-        # default= 0,
     ) # type: ignore
 
     # List Editors (in some cases the names do not match across the versions)
@@ -345,14 +337,13 @@ class ES_UserPrefs(bpy.types.AddonPreferences):
 
         box.separator()
         
-addon_icons = None
+# addon_icons = None
 
 ####################################
 # REGISTER/UNREGISTER
 ####################################
 def register():
     bpy.utils.register_class(ES_UserPrefs) 
-    # Custom icons
     global addon_icons
     addon_icons = previews.new()
     addon_path =  os.path.dirname(__file__)
@@ -363,7 +354,7 @@ def register():
 
 def unregister():
     bpy.utils.unregister_class(ES_UserPrefs)
-    # Custo icons
+
     global addon_icons
     previews.remove(addon_icons)
     addon_icons = None
