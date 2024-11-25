@@ -15,8 +15,8 @@ addon_icons = previews.new()
 addon_path =  os.path.dirname(__file__)
 icons_dir = os.path.join(addon_path, "icons")
 
-addon_icons.load("icon_editor_swap_color", os.path.join(icons_dir, "icon_editor_swap_color.svg"), 'IMAGE')
-addon_icons.load("icon_editor_swap_bw", os.path.join(icons_dir, "icon_editor_swap_bw.svg"), 'IMAGE')
+addon_icons.load("icon_editor_swap_color", os.path.join(icons_dir, "icon_editor_swap_color.png"), 'IMAGE')
+addon_icons.load("icon_editor_swap_bw", os.path.join(icons_dir, "icon_editor_swap_bw.png"), 'IMAGE')
 
 # icons_dict = bpy.utils.previews.new()
 class ES_UserPrefs(bpy.types.AddonPreferences):
@@ -349,8 +349,8 @@ def register():
     addon_path =  os.path.dirname(__file__)
     icons_dir = os.path.join(addon_path, "icons")
     
-    addon_icons.load("icon_editor_swap_color", os.path.join(icons_dir, "icon_editor_swap_color.svg"), 'IMAGE')
-    addon_icons.load("icon_editor_swap_bw", os.path.join(icons_dir, "icon_editor_swap_bw.svg"), 'IMAGE')
+    addon_icons.load("icon_editor_swap_color", os.path.join(icons_dir, "icon_editor_swap_color.png"), 'IMAGE')
+    addon_icons.load("icon_editor_swap_bw", os.path.join(icons_dir, "icon_editor_swap_bw.png"), 'IMAGE')
 
 def unregister():
     bpy.utils.unregister_class(ES_UserPrefs)

@@ -20,7 +20,7 @@ bl_info = {
     "name": "Editor Swap",
     "author": "carlosmu <carlos.damian.munoz@gmail.com>",
     "blender": (2, 83, 0),
-    "version": (1, 3, 0), 
+    "version": (1, 3, 1), 
     "category": "User",
     "location": "Editors headers",
     "description": "Swap Editors by pressing shortcut or button.",
